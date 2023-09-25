@@ -15,5 +15,6 @@ module.exports = {
       {allowConstantExport: true},
     ],
     'indent': ['error', 2],
+    'linebreak-style': 0
   },
 };
