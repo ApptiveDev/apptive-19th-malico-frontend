@@ -18,7 +18,7 @@ interface TabState {
 }
 
 const initialState: TabState = {
-  current_tab: Constants.tabs.TAB_ID_LOGIN,
+  current_tab: Constants.tabs.TAB_ID_HOME,
 };
 
 export const tabSwitch = (tab_id: number): TabSwitchAction => {
