@@ -25,6 +25,8 @@
       "@css/*": ["src/css/*"],
       "@assets/*": ["src/assets/*"],
       "@modules/*": ["src/modules/*"],
+      "@constants/*": ["src/constants/*"],
+      "@utils/*": ["src/utils/*"],
       "@/*": ["src/*"]
     }
   },
