@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from '@components/App.tsx';
 import '@css/index.css';
 import {configureStore} from '@reduxjs/toolkit';
-import authReducer from '@modules/auth.ts';
+import authReducer from '@modules/authReducer.ts';
 import {Provider} from 'react-redux';
 
 const store = configureStore({
