@@ -30,7 +30,7 @@ const LoginPage = (): ReactNode => {
       </div>
       <div className="flex flex-col mt-[64px] pl-[16px] pr-[16px]">
 
-        <Input placeholder="아이디"
+        <Input placeholder="아이디 입력"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             const inputId = e.target.value;
             setUserId(inputId);
@@ -38,7 +38,7 @@ const LoginPage = (): ReactNode => {
             // 사용자 정보 db 스키마가 정의되면 상수로서 정의하는 것이 좋을 것 같음
           }}></Input>
 
-        <Input placeholder="비밀번호" type="password"
+        <Input placeholder="비밀번호 입력" type="password"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             const inputPassword = e.target.value;
             setUserPassword(inputPassword);
