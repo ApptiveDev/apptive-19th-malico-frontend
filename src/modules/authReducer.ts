@@ -7,12 +7,12 @@ const ACCESS_TOKEN_ITEM_KEY = 'access_token';
 
 interface AuthSuccessAction {
   type: typeof AUTH_SUCCESS;
-  my_info: Object;
+  myInfo: object;
 }
 
 interface AuthErrorAction {
   type: typeof AUTH_ERROR;
-  error_message: string;
+  errorMessage: string;
 }
 
 interface AuthLoadingAction {
@@ -30,17 +30,17 @@ type AuthActionType =
   | AuthLogoutAction;
 
 interface AuthState {
-  is_loading: boolean;
+  isLoading: boolean;
   authenticated: boolean;
-  error_message: string | null;
-  my_info: Object | null; // 유저 정보를 나타내는 인터페이스 필요
+  errorMessage: string | null;
+  myInfo: object | null; // 유저 정보를 나타내는 인터페이스 필요
 }
 
 const initialState: AuthState = {
-  is_loading: false,
+  isLoading: false,
   authenticated: localStorage.getItem(ACCESS_TOKEN_ITEM_KEY) !== null,
-  error_message: null,
-  my_info: null,
+  errorMessage: null,
+  myInfo: null,
 };
 
 export const authLoading = (): AuthLoadingAction => {
@@ -49,17 +49,17 @@ export const authLoading = (): AuthLoadingAction => {
   };
 };
 
-export const authSuccess = (my_info: Object): AuthSuccessAction => {
+export const authSuccess = (myInfo: object): AuthSuccessAction => {
   return {
     type: AUTH_SUCCESS,
-    my_info: my_info,
+    myInfo: myInfo,
   };
 };
 
-export const authError = (error_message: string): AuthErrorAction => {
+export const authError = (errorMessage: string): AuthErrorAction => {
   return {
     type: AUTH_ERROR,
-    error_message: error_message,
+    errorMessage: errorMessage,
   };
 };
 
@@ -72,24 +72,24 @@ export const authLogout = (): AuthLogoutAction => {
 const authReducer = (state = initialState, action: AuthActionType) => {
   switch (action.type) {
     case AUTH_LOADING:
-      return {...state, is_loading: true, error_message: null};
+      return {...state, isLoading: true, errorMessage: null};
     case AUTH_SUCCESS:
       return {
         ...state,
-        is_loading: false,
+        isLoading: false,
         authenticated: true,
-        my_info: action.my_info,
-        error_message: null,
+        myInfo: action.myInfo,
+        errorMessage: null,
       };
     case AUTH_ERROR:
-      return {...state, error_message: action.error_message, is_loading: false};
+      return {...state, errorMessage: action.errorMessage, isLoading: false};
     case AUTH_LOGOUT:
       return {
         ...state,
-        is_loading: false,
+        isLoading: false,
         authenticated: false,
-        my_info: null,
-        error_message: null,
+        myInfo: null,
+        errorMessage: null,
       };
     default:
       return state;
