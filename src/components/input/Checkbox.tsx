@@ -8,7 +8,7 @@ interface CheckboxProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Checkbox = (props: CheckboxProps) => {
+const Checkbox = ({checked, onChange, label}: CheckboxProps) => {
   return (
     <>
       <label className='flex'>
@@ -24,12 +24,12 @@ const Checkbox = (props: CheckboxProps) => {
             backgroundRepeat: 'no-repeat',
             backgroundPosition: '50% 55%',
           }}
-          checked={props.checked}
-          onChange={props.onChange}
+          checked={checked}
+          onChange={onChange}
         />
 
         <p className='text-primary font-bold font-apple ml-[4px]'>
-          {props.label && props.label}</p>
+          {label && label}</p>
       </label>
     </>
   );
