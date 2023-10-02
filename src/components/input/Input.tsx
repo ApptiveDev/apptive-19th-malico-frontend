@@ -5,15 +5,17 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
 }
 
-const Input = (props: InputProps) => {
+const Input = ({label, errorMessage, ...rest}: InputProps) => {
   return <div className='mb-[8px]'>
-    {props.label && <label>{props.label}</label>}
+    {label && <label>{label}</label>}
+
     <input className='w-full h-10 px-3 py-2 border border-middle_grey
      rounded-md leading-tight focus:outline-none
-      focus:border-blue-500 focus:ring text-[16px]' {...props} />
-    {props.errorMessage &&
+      focus:border-blue-500 focus:ring text-[16px]' {...rest} />
+
+    {errorMessage &&
       <span className='text-red-500 text-[16px] mt-[8px] ml-[4px]'>
-        {props.errorMessage}
+        {errorMessage}
       </span>}
   </div>;
 };
