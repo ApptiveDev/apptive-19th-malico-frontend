@@ -8,9 +8,9 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 const Input = (props: InputProps) => {
   return <div className='mb-[8px]'>
     {props.label && <label>{props.label}</label>}
-    <input className='w-full h-10 px-3 py-2 border border-[rgba(229,229,234,1)]
+    <input className='w-full h-10 px-3 py-2 border border-middle_grey
      rounded-md leading-tight focus:outline-none
-      focus:border-blue-500 focus:ring' {...props} />
+      focus:border-blue-500 focus:ring text-[16px]' {...props} />
     {props.errorMessage &&
       <span className='text-red-500 text-[16px] mt-[8px] ml-[4px]'>
         {props.errorMessage}
