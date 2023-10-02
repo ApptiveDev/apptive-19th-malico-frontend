@@ -9,6 +9,12 @@ export default {
       fontFamily: {
         'apple': ['Apple SD Gothic Neo', 'sans-serif'],
       },
+      colors: {
+        'middle_grey': 'rgba(229, 229, 234, 1)',
+        'dark_grey': 'rgba(136, 136, 136, 1)',
+        'primary': 'rgba(60,127,255,1)',
+        'primary_transition': 'rgba(50,117,245,1)'
+      }
     },
   },
   plugins: [],
