@@ -10,6 +10,7 @@ import Input from '@components/input/Input.tsx';
 import {limitInputNumber} from '@/utils';
 import Button from '@components/button/Button.tsx';
 import Checkbox from '@components/input/Checkbox.tsx';
+import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
 
 const LoginPage = (): ReactNode => {
   const [/* userId */, setUserId] = useState('');
@@ -26,7 +27,7 @@ const LoginPage = (): ReactNode => {
   }
 
   return (
-    <PageContainer>
+    <PageContainer> <ResponsiveContainer>
       <div className='flex flex-col pl-[16px] pr-[16px]'>
         <div className='flex justify-center mt-[100px]'>
           <img className='w-[183px] h-183px'
@@ -70,7 +71,7 @@ const LoginPage = (): ReactNode => {
           <p className='flex flex-1 justify-center'>비밀번호 찾기</p>
         </div>
       </div>
-    </PageContainer>
+    </ResponsiveContainer> </PageContainer>
   );
 };
 
