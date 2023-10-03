@@ -4,10 +4,8 @@ type pageContainerProps = {
   children?: ReactNode
 }
 const PageContainer = (props: pageContainerProps) => {
-  return <div className='flex justify-center h-[100dvh] w-[100dvw]'>
-    <div className='flex flex-col w-[100%] max-w-[400px]'>
-      {props.children}
-    </div>
+  return <div className='flex flex-col h-[100dvh] w-[100dvw]'>
+    {props.children}
   </div>;
 };
 export default PageContainer;
