@@ -1,9 +1,6 @@
-import {ReactNode} from 'react';
+import {ContainerProps} from '@components/container/Container.ts';
 
-type pageContainerProps = {
-  children?: ReactNode
-}
-const PageContainer = (props: pageContainerProps) => {
+const PageContainer = (props: ContainerProps) => {
   return <div className='flex flex-col h-[100dvh] w-[100dvw]'>
     {props.children}
   </div>;
