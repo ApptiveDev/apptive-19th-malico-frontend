@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Home from '@components/Home.tsx';
+import Home from '@pages/Home.tsx';
+import LoginPage from '@pages/LoginPage.tsx';
+import RegisterPage from '@pages/RegisterPage.tsx';
 
 import '@css/index.css';
 
@@ -13,7 +15,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <Provider store={rootStore}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route path='/' element={<Home />}></Route>
+          <Route path='/login' element={<LoginPage />}></Route>
+          <Route path='/register' element={<RegisterPage />}></Route>
         </Routes>
       </BrowserRouter>
     </Provider>
