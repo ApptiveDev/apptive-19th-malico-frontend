@@ -12,7 +12,8 @@ const NavProgressBar = ({numerator, dominator}: NavProgressBarProps) => {
   }, [numerator, dominator]);
 
   return (
-    <div className='flex w-full h-[5px] bg-transparent border border-gray-200'>
+    <div className='flex w-full h-[5px] bg-transparent
+     border-b border-gray-200'>
       <div
         className='h-full bg-primary transition-all duration-200 ease-in-out'
         style={{width: `${percentage}%`}}
