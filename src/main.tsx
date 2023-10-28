@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Home from '@pages/Home.tsx';
 import LoginPage from '@pages/LoginPage.tsx';
-import RegisterPage from '@pages/RegisterPage.tsx';
+import RegisterPage from '@pages/register/RegisterPage.tsx';
 
 import '@css/index.css';
 
