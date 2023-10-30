@@ -1,12 +1,26 @@
 import PageContainer from '@components/container/PageContainer.tsx';
 import Navbar from '@components/navbar/Navbar.tsx';
+import {useState} from 'react';
+import Constants from '@/constants';
+import StickyFooter from '@components/footer/StickyFooter.tsx';
+import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
 
 const RegisterPage = () => {
+  const [displayProgressbar/* , setDisplayProgressbar*/] = useState(true);
+  const [currentProgress/* , setCurrentProgress*/] =
+    useState(Constants.register.page_start);
   return (
     <PageContainer>
-      <Navbar title='가입 유형 선택' hasBackwardButton={true} hasProgressBar={true}
-        progressNumerator={1} progressDominator={4} >
+
+      <Navbar title={Constants.register.page_titles[currentProgress]}
+        hasBackwardButton={true}
+        hasProgressBar={displayProgressbar} progressNumerator={currentProgress}
+        progressDominator={Constants.register.max_pages}>
       </Navbar>
+      <ResponsiveContainer>
+        <StickyFooter>
+        </StickyFooter>
+      </ResponsiveContainer>
     </PageContainer>
   );
 };
