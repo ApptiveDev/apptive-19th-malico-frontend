@@ -6,7 +6,8 @@ interface StickyFooterProps {
 
 const StickyFooter = ({children}: StickyFooterProps) => {
   return (
-    <footer className="sticky bottom-0 py-4">
+    <footer className='sticky pt-2 h-[80px] w-[100%]
+     flex flex-row justify-center'>
       {children}
     </footer>
   );
