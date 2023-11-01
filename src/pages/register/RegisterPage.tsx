@@ -4,11 +4,13 @@ import {useState} from 'react';
 import Constants from '@/constants';
 import StickyFooter from '@components/footer/StickyFooter.tsx';
 import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
+import ScrollableContainer from '@components/container/ScrollableContainer.tsx';
 
 const RegisterPage = () => {
   const [displayProgressbar/* , setDisplayProgressbar*/] = useState(true);
   const [currentProgress/* , setCurrentProgress*/] =
     useState(Constants.register.page_start);
+
   return (
     <PageContainer>
 
@@ -17,10 +19,12 @@ const RegisterPage = () => {
         hasProgressBar={displayProgressbar} progressNumerator={currentProgress}
         progressDominator={Constants.register.max_pages}>
       </Navbar>
-      <ResponsiveContainer>
-        <StickyFooter>
-        </StickyFooter>
-      </ResponsiveContainer>
+      <ScrollableContainer>
+        <ResponsiveContainer>
+        </ResponsiveContainer>
+      </ScrollableContainer>
+      <StickyFooter>
+      </StickyFooter>
     </PageContainer>
   );
 };
