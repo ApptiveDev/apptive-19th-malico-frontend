@@ -1,15 +1,21 @@
 import PageContainer from '@components/container/PageContainer.tsx';
 import Navbar from '@components/navbar/Navbar.tsx';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Constants from '@/constants';
 import StickyFooter from '@components/footer/StickyFooter.tsx';
 import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
 import ScrollableContainer from '@components/container/ScrollableContainer.tsx';
+import {useLocation} from 'react-router-dom';
 
 const RegisterPage = () => {
   const [displayProgressbar/* , setDisplayProgressbar*/] = useState(true);
-  const [currentProgress/* , setCurrentProgress*/] =
-    useState(Constants.register.page_start);
+  const [currentProgress, setCurrentProgress] =
+    useState<number>(Constants.register.page_start);
+  const loc = useLocation();
+
+  useEffect(() => {
+    setCurrentProgress(Constants.register.getProgressFromHash(loc.hash));
+  }, [loc.hash]);
 
   return (
     <PageContainer>

@@ -5,7 +5,7 @@ const registerConstants = {
     PAGE_AUTHORIZATION: 3,
     PAGE_INPUT_INFORMATION: 4,
 
-    PAGE_EULA: 5,
+    PAGE_TOS: 5,
     PAGE_PRIVACY_POLICY: 6,
 
     PAGE_REGISTRATION_COMPLETE: 7,
@@ -21,5 +21,19 @@ const registerConstants = {
     '회원가입 완료'],
   max_pages: 4,
   page_start: 1,
+  getProgressFromHash: (hash: string) => {
+    const progress: {[key: string]: number} = {
+      '#register-selection': 1,
+      '#user-agreement': 2,
+      '#authorization': 3,
+      '#input-information': 4,
+
+      '#tos': 5,
+      '#privacy-policy': 6,
+
+      '#complete': 7,
+    };
+    return progress[hash] ?? 1;
+  },
 };
 export default registerConstants;
