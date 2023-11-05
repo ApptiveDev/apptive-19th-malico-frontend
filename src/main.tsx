@@ -9,6 +9,7 @@ import '@css/index.css';
 import {rootStore} from '@/modules';
 import {Provider} from 'react-redux';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import FindId from '@pages/findId/FindId.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path='/' element={<Home />}></Route>
           <Route path='/login' element={<LoginPage />}></Route>
           <Route path='/register' element={<RegisterPage />}></Route>
+          <Route path='/find-id' element={<FindId />}></Route>
         </Routes>
       </BrowserRouter>
     </Provider>
