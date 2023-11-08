@@ -6,20 +6,31 @@ import StickyFooter from '@components/footer/StickyFooter.tsx';
 import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
 import ScrollableContainer from '@components/container/ScrollableContainer.tsx';
 import {useLocation} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {clearRegisterInfo} from '@modules/registerReducer.ts';
+import RegisterContent from '@pages/register/RegisterContent.tsx';
 
 const RegisterPage = () => {
   const [displayProgressbar, setDisplayProgressbar] = useState(true);
   const [currentProgress, setCurrentProgress] =
     useState<number>(Constants.register.page_start);
-  const loc = useLocation();
+
+  const location = useLocation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const progressNum = Constants.register.getProgressFromHash(loc.hash);
+    const progressNum = Constants.register.getProgressFromHash(location.hash);
     setCurrentProgress(progressNum);
     if (progressNum > Constants.register.page_nums.PAGE_INPUT_INFORMATION) {
       setDisplayProgressbar(false);
     }
-  }, [loc.hash]);
+  }, [location.hash]);
+
+  useEffect(() => {
+    if (!location.pathname.startsWith('/register')) {
+      dispatch(clearRegisterInfo());
+    }
+  }, [location, dispatch]);
 
   return (
     <PageContainer>
@@ -31,6 +42,7 @@ const RegisterPage = () => {
       </Navbar>
       <ScrollableContainer>
         <ResponsiveContainer>
+          <RegisterContent currentProgress={currentProgress} />
         </ResponsiveContainer>
       </ScrollableContainer>
       <StickyFooter>
