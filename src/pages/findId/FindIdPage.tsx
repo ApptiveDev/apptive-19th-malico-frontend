@@ -8,7 +8,7 @@ import Input from '@components/input/Input.tsx';
 import Button from '@components/button/Button.tsx';
 import FindIdResult from '@pages/findId/FindIdResult.tsx';
 
-function FindIdPage() {
+const FindIdPage = () => {
   const [/* name */, setName] = useState('');
   const [/* email */, setEmail] = useState('');
   const [/* authCode */, setAuthCode] = useState('');
@@ -19,7 +19,7 @@ function FindIdPage() {
   return (
     <PageContainer>
       <Navbar title='아이디 찾기'
-              hasBackwardButton={true}>
+        hasBackwardButton={true}>
       </Navbar>
       <ResponsiveContainer>
         <div>
@@ -32,16 +32,16 @@ function FindIdPage() {
                   <p >아이디를 찾기 위해</p>
                   <p >본인 인증을 진행해 주세요.</p>
                 </div>
-                <div className='flex flex-col block'>
+                <div className='flex flex-col'>
                   <div className='mb-8'>
                     <p className='text-[18px] mb-1 font-bold'>이름</p>
                     <Input placeholder='이름 입력'
-                           onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                             const inputName = e.target.value;
-                             setName(inputName);
-                             limitInputNumber(e, 10); // 이름의 최대 글자수 제한: 4글자.
-                             // 사용자 정보 db 스키마가 정의되면 상수로서 정의하는 것이 좋을 것 같음
-                           }}></Input>
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                        const inputName = e.target.value;
+                        setName(inputName);
+                        limitInputNumber(e, 10); // 이름의 최대 글자수 제한: 4글자.
+                        // 사용자 정보 db 스키마가 정의되면 상수로서 정의하는 것이 좋을 것 같음
+                      }}></Input>
                   </div>
                   <div className='mb-8'>
                     <p className='text-[18px] mb-1 font-bold'>이메일</p>
@@ -56,17 +56,17 @@ function FindIdPage() {
                           }}></Input>
                       </div>
                       <div className='flex'>
-                        {isConfirmed ? (<button className='bg-gray-100 text-dark_grey h-[40px] w-[120px] rounded-md -mt-2
-                          transition duration-300 ease-in-out hover:bg-primary-transition
-                          text-[18px] focus:outline-none focus:ring
-                          focus:ring-blue-200 font-apple'>인증 완료</button>
+                        {isConfirmed ? (<button className='bg-gray-100 text-dark_grey
+                         h-[40px] w-[120px] rounded-md -mt-2 transition duration-300
+                         ease-in-out hover:bg-primary-transition text-[18px] focus:outline-none
+                         focus:ring focus:ring-blue-200 font-apple'>인증 완료</button>
                         ) : (
-                          <button className='bg-primary text-white h-[40px] w-[120px] rounded-md -mt-2
-                    transition duration-300 ease-in-out hover:bg-primary-transition
-                    text-[18px] focus:outline-none focus:ring
-                    focus:ring-blue-200 font-apple' onClick={() => setIsSended(true)}>{
-                            isSended ? ('재전송') : ('인증번호 전송')
-                          }</button>
+                          <button className='bg-primary text-white h-[40px] w-[120px]
+                           rounded-md -mt-2 transition duration-300 ease-in-out
+                           hover:bg-primary-transition text-[18px] focus:outline-none focus:ring
+                           focus:ring-blue-200 font-apple' onClick={() => setIsSended(true)}>{
+                              isSended ? ('재전송') : ('인증번호 전송')
+                            }</button>
                         )}
                       </div>
                     </div>
@@ -85,10 +85,11 @@ function FindIdPage() {
                             }}></Input>
                         </div>
                         <div className='flex'>
-                          <button className='bg-primary text-white h-[40px] w-[120px] rounded-md -mt-2
-                    transition duration-300 ease-in-out hover:bg-primary-transition
-                    text-[18px] focus:outline-none focus:ring
-                    focus:ring-blue-200 font-apple' onClick={() => setIsConfirmed(true)}>인증번호 확인</button>
+                          <button className='bg-primary text-white h-[40px] w-[120px]
+                          rounded-md -mt-2 transition duration-300 ease-in-out
+                          hover:bg-primary-transition text-[18px] focus:outline-none focus:ring
+                          focus:ring-blue-200 font-apple'
+                          onClick={() => setIsConfirmed(true)}>인증번호 확인</button>
                         </div>
                       </div>
                     </div>
@@ -114,6 +115,6 @@ function FindIdPage() {
       </StickyFooter>
     </PageContainer>
   );
-}
+};
 
 export default FindIdPage;
