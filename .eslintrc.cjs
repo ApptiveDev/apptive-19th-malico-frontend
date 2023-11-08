@@ -15,6 +15,7 @@ module.exports = {
       {allowConstantExport: true},
     ],
     'indent': ['error', 2, {"SwitchCase": 1}],
-    'linebreak-style': 0
+    'linebreak-style': 0,
+    'max-len': ['error', 100]
   },
 };
