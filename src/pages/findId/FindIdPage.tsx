@@ -115,6 +115,6 @@ const FindIdPage = () => {
       </StickyFooter>
     </PageContainer>
   );
-}
+};
 
 export default FindIdPage;
