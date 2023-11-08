@@ -32,7 +32,7 @@ const FindIdPage = () => {
                   <p >아이디를 찾기 위해</p>
                   <p >본인 인증을 진행해 주세요.</p>
                 </div>
-                <div className='flex flex-col block'>
+                <div className='flex flex-col'>
                   <div className='mb-8'>
                     <p className='text-[18px] mb-1 font-bold'>이름</p>
                     <Input placeholder='이름 입력'
