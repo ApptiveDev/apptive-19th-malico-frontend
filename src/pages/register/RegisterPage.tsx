@@ -8,13 +8,17 @@ import ScrollableContainer from '@components/container/ScrollableContainer.tsx';
 import {useLocation} from 'react-router-dom';
 
 const RegisterPage = () => {
-  const [displayProgressbar/* , setDisplayProgressbar*/] = useState(true);
+  const [displayProgressbar, setDisplayProgressbar] = useState(true);
   const [currentProgress, setCurrentProgress] =
     useState<number>(Constants.register.page_start);
   const loc = useLocation();
 
   useEffect(() => {
-    setCurrentProgress(Constants.register.getProgressFromHash(loc.hash));
+    const progressNum = Constants.register.getProgressFromHash(loc.hash);
+    setCurrentProgress(progressNum);
+    if (progressNum > Constants.register.page_nums.PAGE_INPUT_INFORMATION) {
+      setDisplayProgressbar(false);
+    }
   }, [loc.hash]);
 
   return (
