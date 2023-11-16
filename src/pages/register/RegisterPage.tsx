@@ -9,19 +9,22 @@ import {useLocation} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {clearRegisterInfo} from '@modules/registerReducer.ts';
 import RegisterContent from '@pages/register/RegisterContent.tsx';
+import RegisterStepButton from '@components/button/RegisterStepButton.tsx';
 
 const RegisterPage = () => {
+  const constant = Constants.register;
+
   const [displayProgressbar, setDisplayProgressbar] = useState(true);
   const [currentProgress, setCurrentProgress] =
-    useState<number>(Constants.register.page_start);
+    useState<number>(constant.page_start);
 
   const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const progressNum = Constants.register.getProgressFromHash(location.hash);
+    const progressNum = constant.getProgressFromHash(location.hash);
     setCurrentProgress(progressNum);
-    if (progressNum > Constants.register.page_nums.PAGE_INPUT_INFORMATION) {
+    if (progressNum > constant.page_nums.PAGE_INPUT_INFORMATION) {
       setDisplayProgressbar(false);
     }
   }, [location.hash]);
@@ -35,10 +38,10 @@ const RegisterPage = () => {
   return (
     <PageContainer>
 
-      <Navbar title={Constants.register.page_titles[currentProgress]}
+      <Navbar title={constant.page_titles[currentProgress]}
         hasBackwardButton={true}
         hasProgressBar={displayProgressbar} progressNumerator={currentProgress}
-        progressDominator={Constants.register.max_pages}>
+        progressDominator={constant.max_pages}>
       </Navbar>
       <ScrollableContainer>
         <ResponsiveContainer>
@@ -46,6 +49,10 @@ const RegisterPage = () => {
         </ResponsiveContainer>
       </ScrollableContainer>
       <StickyFooter>
+        {currentProgress < constant.page_nums.PAGE_INPUT_INFORMATION ?
+          <div className='w-full h-full max-w-[400px] flex flex-col'>
+            <RegisterStepButton currentProgress={currentProgress} />
+          </div> : null}
       </StickyFooter>
     </PageContainer>
   );
