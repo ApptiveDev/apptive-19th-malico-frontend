@@ -35,5 +35,11 @@ const registerConstants = {
     };
     return progress[hash] ?? 1;
   },
+  infos: {
+    GENDER_MALE: '남',
+    GENDER_FEMALE: '여',
+    TYPE_CUSTOMER: 0,
+    TYPE_STYLIST: 1,
+  },
 };
 export default registerConstants;
