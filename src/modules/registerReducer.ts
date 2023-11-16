@@ -1,3 +1,5 @@
+import Constants from '@/constants';
+
 const REGISTER_SET_INFO = 'register/SET_INFO';
 const REGISTER_CLEAR_INFO = 'register/CLEAR_INFO';
 
@@ -21,6 +23,35 @@ type RegisterState = {
   password?: string;
   passwordConfirm?: string;
   gender?: number;
+};
+
+const registerFields: (keyof RegisterState)[] = [
+  'register_type',
+  'tos_agreed',
+  'name',
+  'email',
+  'authorized',
+  'nickname',
+  'loginid',
+  'password',
+  'passwordConfirm',
+  'gender',
+];
+
+const pageNums = Constants.register.page_nums;
+
+export const getRequiredInfo = (progress: number): (keyof RegisterState)[] => {
+  switch (progress) {
+    case pageNums.PAGE_REGISTER_SELECTION:
+      return registerFields.slice(0, 0);
+    case pageNums.PAGE_TOS:
+      return registerFields.slice(0, 1);
+    case pageNums.PAGE_AUTHORIZATION:
+      return registerFields.slice(0, 4);
+    case pageNums.PAGE_INPUT_INFORMATION:
+      return registerFields;
+  }
+  return [];
 };
 
 // 모두 undefined
