@@ -18,17 +18,28 @@ const RegisterStepButton = ({currentProgress}: RegisterStepButtonProps) => {
 
   const constant = Constants.register;
   useEffect(() => {
+    if (Object.keys(registerState).length === 0) {
+      return;
+    }
     const requiredInfo = getRequiredInfo(currentProgress);
+
     let disabledChange = false;
     for (const key of requiredInfo) {
-      if (typeof registerState[key] === 'undefined' || registerState[key] === null) {
+      if (typeof registerState[key] === 'undefined' || registerState[key] ===
+        null) {
         disabledChange = true;
       }
     }
+    if (currentProgress === constant.page_nums.PAGE_USER_AGREEMENT &&
+      !registerState.tos_agreed) {
+      disabledChange = true;
+    }
     setDisabled(disabledChange);
   }, [currentProgress, registerState]);
-  return <Button label={'다음'} disabled={disabled} onClick={() =>{
-    navigate(constant.getNextUrlHash(currentProgress));
-  }}/>;
+  return <Button label={'다음'} disabled={disabled} onClick={() => {
+    if (!disabled) {
+      navigate(constant.getNextUrlHash(currentProgress));
+    }
+  }} />;
 };
 export default RegisterStepButton;
