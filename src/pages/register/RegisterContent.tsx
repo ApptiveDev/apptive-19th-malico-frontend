@@ -1,6 +1,7 @@
 import Constants from '@/constants';
 import TypeSelection from '@pages/register/steps/TypeSelection.tsx';
 import UserAgreement from '@pages/register/steps/UserAgreement.tsx';
+import Authorization from '@pages/register/steps/Authorization.tsx';
 
 type RegisterContentProp = {
   currentProgress: number;
@@ -14,6 +15,8 @@ const RegisterContent = (prop: RegisterContentProp) => {
         return <TypeSelection></TypeSelection>;
       case pageNums.PAGE_USER_AGREEMENT:
         return <UserAgreement></UserAgreement>;
+      case pageNums.PAGE_AUTHORIZATION:
+        return <Authorization></Authorization>;
     }
   };
 
