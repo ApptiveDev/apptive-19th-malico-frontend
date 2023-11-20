@@ -43,11 +43,11 @@ const pageNums = Constants.register.page_nums;
 export const getRequiredInfo = (progress: number): (keyof RegisterState)[] => {
   switch (progress) {
     case pageNums.PAGE_REGISTER_SELECTION:
-      return registerFields.slice(0, 0);
-    case pageNums.PAGE_TOS:
       return registerFields.slice(0, 1);
+    case pageNums.PAGE_USER_AGREEMENT:
+      return registerFields.slice(0, 2);
     case pageNums.PAGE_AUTHORIZATION:
-      return registerFields.slice(0, 4);
+      return registerFields.slice(0, 5);
     case pageNums.PAGE_INPUT_INFORMATION:
       return registerFields;
   }
