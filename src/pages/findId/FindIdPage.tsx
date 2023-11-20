@@ -30,7 +30,7 @@ const FindIdPage = () => {
               <div className='flex flex-col h-[calc(100vh-72px)] mx-4'>
                 <div className='flex flex-col my-12 text-left text-[24px] font-bold'>
                   <p >아이디를 찾기 위해</p>
-                  <p >본인 인증을 진행해 주세요.</p>
+                  <p >본인 인증을 진행해주세요.</p>
                 </div>
                 <div className='flex flex-col'>
                   <div className='mb-8'>

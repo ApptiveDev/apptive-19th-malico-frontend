@@ -27,7 +27,7 @@ const Authorization = () => {
   return (<>
     <div className='py-6'>
       <p className='text-[24px] font-semibold'>서비스 이용을 위해</p>
-      <p className='text-[24px] font-semibold'>본인 인증을 진행해 주세요.</p>
+      <p className='text-[24px] font-semibold'>본인 인증을 진행해주세요.</p>
     </div>
     <p className='text-[18px] font-semibold mb-2'>이름</p>
     <Input placeholder='이름 입력' id='register-auth-name' onChange={(e) => {
@@ -88,12 +88,13 @@ const Authorization = () => {
         인증번호가 전송되었습니다.</p>
       <div className='flex h-[40px] mt-[16px] gap-2'>
         <div className='flex grow h-[40px]'>
-          <Input placeholder='인증번호 입력'
+          <Input placeholder={registerState.authorized ? '인증 완료': '인증번호를 입력해주세요.'}
             onChange={(e) => {
               limitInputNumber(e, 6);
             }}
             errorMessage={authnumErrorMessage}
             id='register-auth-number'
+            disabled={registerState.authorized}
           />
         </div>
         <Button label='인증번호 확인' style={{
