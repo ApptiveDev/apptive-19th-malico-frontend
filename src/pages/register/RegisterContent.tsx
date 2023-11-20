@@ -2,6 +2,7 @@ import Constants from '@/constants';
 import TypeSelection from '@pages/register/steps/TypeSelection.tsx';
 import UserAgreement from '@pages/register/steps/UserAgreement.tsx';
 import Authorization from '@pages/register/steps/Authorization.tsx';
+import InformationInput from '@pages/register/steps/InformationInput.tsx';
 
 type RegisterContentProp = {
   currentProgress: number;
@@ -17,6 +18,8 @@ const RegisterContent = (prop: RegisterContentProp) => {
         return <UserAgreement></UserAgreement>;
       case pageNums.PAGE_AUTHORIZATION:
         return <Authorization></Authorization>;
+      case pageNums.PAGE_INPUT_INFORMATION:
+        return <InformationInput></InformationInput>;
     }
   };
 
