@@ -17,14 +17,14 @@ const InformationInput = () => {
   return <>
     <div className='py-6'>
       <p className='text-[24px] font-semibold'>마리코에서 사용할</p>
-      <p className='text-[24px] font-semibold'>계정 정보를 입력해주세요.</p>
+      <p className='text-[24px] font-semibold'>계정 정보를 입력해 주세요.</p>
     </div>
     <p className='text-[18px] font-semibold mb-2'>닉네임</p>
     <Input placeholder='한글, 영문, 숫자 중 자유롭게 2~10자 이내' id='register-auth-name'
       onChange={(e) => {
         limitInputNumber(e, 10);
         if (!e.currentTarget.validity.valid) {
-          setNicknameErrorMsg('한글, 영문, 숫자 포함 2~10자 이내로 입력해주세요.');
+          setNicknameErrorMsg('한글, 영문, 숫자 포함 2~10자 이내로 입력해 주세요.');
         } else {
           setNicknameErrorMsg(undefined);
         }
@@ -36,7 +36,7 @@ const InformationInput = () => {
       onChange={(e) => {
         limitInputNumber(e, 20);
         if (!e.currentTarget.validity.valid) {
-          setLoginidErrorMsg('영문 소문자, 숫자 포함 6~20자 이내로 입력해주세요.');
+          setLoginidErrorMsg('영문 소문자, 숫자 포함 6~20자 이내로 입력해 주세요.');
         } else {
           setLoginidErrorMsg(undefined);
         }
@@ -49,7 +49,7 @@ const InformationInput = () => {
       onChange={(e) => {
         limitInputNumber(e, 20);
         if (!e.currentTarget.validity.valid) {
-          setPasswordErrorMsg('영문 소문자, 숫자 포함 6~20자 이내로 입력해주세요.');
+          setPasswordErrorMsg('영문 소문자, 숫자 포함 6~20자 이내로 입력해 주세요.');
         } else {
           setPasswordErrorMsg(undefined);
         }
@@ -59,11 +59,11 @@ const InformationInput = () => {
       type={'password'} />
 
     <p className='text-[18px] font-semibold mb-2 mt-[16px]'>비밀번호확인</p>
-    <Input placeholder='비밀번호를 한 번 더 입력해주세요.' id='register-auth-name'
+    <Input placeholder='비밀번호를 한 번 더 입력해 주세요.' id='register-auth-name'
       onChange={(e) => {
         limitInputNumber(e, 20);
         if (!e.currentTarget.validity.valid) {
-          setPassConfirmErrorMsg('영문 소문자, 숫자 포함 6~20자 이내로 입력해주세요.');
+          setPassConfirmErrorMsg('영문 소문자, 숫자 포함 6~20자 이내로 입력해 주세요.');
         } else {
           setPassConfirmErrorMsg(undefined);
         }

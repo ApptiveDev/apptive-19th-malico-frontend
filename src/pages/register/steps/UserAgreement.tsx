@@ -36,7 +36,7 @@ const UserAgreement = () => {
   return (<>
     <div className='p-6'>
       <p className='text-[24px] font-semibold'>마리코 서비스 이용약관에</p>
-      <p className='text-[24px] font-semibold'>동의해주세요.</p>
+      <p className='text-[24px] font-semibold'>동의해 주세요.</p>
     </div>
     <div className='mt-[40px] h-[256px] w-full flex flex-col items-center'>
       <div className={agreeAllClass}
