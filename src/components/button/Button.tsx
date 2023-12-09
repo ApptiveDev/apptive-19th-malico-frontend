@@ -9,8 +9,8 @@ const Button = ({label, disabled, ...rest}: ButtonProps) => {
   let btnClass =
     `h-[52px] px-5 rounded-md
   transition duration-300 ease-in-out hover:bg-primary-transition
-  text-[18px] focus:outline-none focus:ring
-  focus:ring-blue-200 font-apple `;
+  text-[18px] focus:outline-none
+  focus:ring-grey-200 font-apple `;
   btnClass += disabled? 'bg-light_grey text-grey' : 'bg-primary text-white';
   return (
     <button
