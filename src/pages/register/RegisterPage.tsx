@@ -6,17 +6,22 @@ import StickyFooter from '@components/footer/StickyFooter.tsx';
 import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
 import ScrollableContainer from '@components/container/ScrollableContainer.tsx';
 import {useLocation} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
-import {clearRegisterInfo} from '@modules/registerReducer.ts';
+import {useDispatch, useSelector} from 'react-redux';
+import {clearRegisterInfo, getRequiredInfo} from '@modules/registerReducer.ts';
 import RegisterContent from '@pages/register/RegisterContent.tsx';
 import RegisterStepButton from '@components/button/RegisterStepButton.tsx';
+import Button from '@components/button/Button.tsx';
+import {RootState} from '@/modules';
 
 const RegisterPage = () => {
   const constant = Constants.register;
 
+  const registerState = useSelector((state: RootState) => state.register);
+
   const [displayProgressbar, setDisplayProgressbar] = useState(true);
   const [currentProgress, setCurrentProgress] =
     useState<number>(constant.page_start);
+  const [canComplete, setCanComplete] = useState<boolean>(false);
 
   const location = useLocation();
   const dispatch = useDispatch();
@@ -35,6 +40,21 @@ const RegisterPage = () => {
     }
   }, [location, dispatch]);
 
+  useEffect(() => {
+    if (currentProgress === constant.page_nums.PAGE_INPUT_INFORMATION) {
+      let completeChange = true;
+      const requiredInfo = getRequiredInfo(currentProgress);
+      for (const key of requiredInfo) {
+        if (typeof registerState[key] === 'undefined' || registerState[key] ===
+          null) {
+          completeChange = false;
+        }
+      }
+      setCanComplete(! completeChange);
+    } else {
+      setCanComplete(false);
+    }
+  }, [registerState, currentProgress]);
   return (
     <PageContainer>
 
@@ -50,9 +70,11 @@ const RegisterPage = () => {
       </ScrollableContainer>
       <StickyFooter>
         {currentProgress < constant.page_nums.PAGE_INPUT_INFORMATION ?
-          <div className='w-full h-full max-w-[400px] flex flex-col'>
+          <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
             <RegisterStepButton currentProgress={currentProgress} />
-          </div> : null}
+          </div> : <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
+            <Button label='확인' disabled={canComplete}/>
+          </div>}
       </StickyFooter>
     </PageContainer>
   );
