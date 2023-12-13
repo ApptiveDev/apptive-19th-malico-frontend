@@ -6,7 +6,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = ({label, errorMessage, ...rest}: InputProps) => {
-  return <div className='mb-[8px]'>
+  return <div className='mb-[8px] w-full'>
     {label && <label>{label}</label>}
 
     <input className='w-full h-10 px-3 py-2 border border-middle_grey
@@ -14,7 +14,7 @@ const Input = ({label, errorMessage, ...rest}: InputProps) => {
       focus:border-blue-500 focus:ring text-[16px]' {...rest} />
 
     {errorMessage &&
-      <span className='text-red-500 text-[16px] mt-[8px] ml-[4px]'>
+      <span className='text-red-500 text-[14px] mt-[8px] ml-[4px]'>
         {errorMessage}
       </span>}
   </div>;

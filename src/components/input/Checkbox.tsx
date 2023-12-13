@@ -1,36 +1,25 @@
-import React from 'react';
-
-import checkIcon from '@assets/icons/check.svg';
-
 interface CheckboxProps {
   checked: boolean;
-  label?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setChecked: (checked: boolean) => void;
 }
 
-const Checkbox = ({checked, onChange, label}: CheckboxProps) => {
+const Checkbox = ({checked, setChecked}: CheckboxProps) => {
   return (
     <>
-      <label className='flex'>
-
-        <input type='checkbox'
-          className='appearance-none w-[24px] h-[24px]
-         border rounded-full border-gray-400
-          checked:bg-blue-600 checked:border-transparent
-          focus:outline-none'
-          style={{
-            backgroundImage: 'url("' + checkIcon + '")',
-            backgroundSize: '70%',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: '50% 55%',
-          }}
-          checked={checked}
-          onChange={onChange}
-        />
-
-        <p className='text-primary font-bold font-apple ml-[4px]'>
-          {label && label}</p>
-      </label>
+      <div
+        className={checked ?
+          'flex justify-center items-center rounded-full w-[24px] h-[24px] bg-primary' :
+          'flex justify-center items-center rounded-full w-[24px] h-[24px] bg-middle_grey'}
+        onClick={() => {
+          setChecked(! checked);
+        }}>
+        <svg width='13' height='10' viewBox='0 0 14 10' fill='none'
+          xmlns='http://www.w3.org/2000/svg'>
+          <path d='M12.3327 1L4.99935 8.33333L1.66602 5'
+            stroke={checked ? 'white' : 'black'}
+            strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
+        </svg>
+      </div>
     </>
   );
 };

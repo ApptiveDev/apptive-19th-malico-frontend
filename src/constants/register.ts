@@ -5,7 +5,7 @@ const registerConstants = {
     PAGE_AUTHORIZATION: 3,
     PAGE_INPUT_INFORMATION: 4,
 
-    PAGE_EULA: 5,
+    PAGE_TOS: 5,
     PAGE_PRIVACY_POLICY: 6,
 
     PAGE_REGISTRATION_COMPLETE: 7,
@@ -21,5 +21,33 @@ const registerConstants = {
     '회원가입 완료'],
   max_pages: 4,
   page_start: 1,
+  progresses: [
+    null, '#register-selection',
+    '#user-agreement',
+    '#authorization',
+    '#input-information',
+    '#tos', '#privacy-policy',
+    '#complete'],
+  getProgressFromHash: (hash: string) => {
+    const progresses = registerConstants.progresses;
+    return progresses.indexOf(hash) === -1 ? 1 : progresses.indexOf(hash);
+  },
+  getNextProgress: (currentProgress: number) => {
+    const pageNums = registerConstants.page_nums;
+    if (currentProgress < pageNums.PAGE_INPUT_INFORMATION) {
+      return currentProgress + 1;
+    }
+    return 0;
+  },
+  getNextUrlHash: (currentProgress: number): string => {
+    return <string>registerConstants.progresses[registerConstants.getNextProgress(
+      currentProgress)];
+  },
+  infos: {
+    GENDER_MALE: '남',
+    GENDER_FEMALE: '여',
+    TYPE_CUSTOMER: 0,
+    TYPE_STYLIST: 1,
+  },
 };
 export default registerConstants;

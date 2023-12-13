@@ -9,7 +9,7 @@ import {Link, Navigate} from 'react-router-dom';
 import Input from '@components/input/Input.tsx';
 import {limitInputNumber} from '@/utils';
 import Button from '@components/button/Button.tsx';
-import Checkbox from '@components/input/Checkbox.tsx';
+import LoginCheckbox from '@components/input/LoginCheckbox.tsx';
 import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
 
 const LoginPage = (): ReactNode => {
@@ -53,7 +53,7 @@ const LoginPage = (): ReactNode => {
           ></Input>
         </div>
         <div className='flex mt-[16px] pl-[4px]'>
-          <Checkbox checked={autologinChecked}
+          <LoginCheckbox checked={autologinChecked}
             onChange={() => setAutoLoginChecked(!autologinChecked)}
             label='로그인 상태 유지'
           />
