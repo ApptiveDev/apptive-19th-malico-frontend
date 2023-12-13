@@ -1,11 +1,11 @@
 import {ChangeEvent, useState} from 'react';
 import Input from '@components/input/Input.tsx';
 import {limitInputNumber} from '@/utils';
-import {useSelector} from 'react-redux';
-import {RootState} from '@/modules';
+// import {useSelector} from 'react-redux';
+// import {RootState} from '@/modules';
 
 const InformationInput = () => {
-  const registerState = useSelector((state: RootState) => state.register);
+  // const registerState = useSelector((state: RootState) => state.register);
 
   const [errorMessages, setErrorMessages] = useState({
     nickname: undefined,
@@ -14,13 +14,13 @@ const InformationInput = () => {
     passConfirm: undefined,
   });
   const [gender, setGender] = useState<string>('');
-  const [inputInfos, setInputInfos] = useState({
-    nickname: undefined,
-    loginid: undefined,
-    password: undefined,
-    passConfirm: undefined,
-    gender: undefined,
-  });
+  // const [inputInfos, setInputInfos] = useState({
+  //   nickname: undefined,
+  //   loginid: undefined,
+  //   password: undefined,
+  //   passConfirm: undefined,
+  //   gender: undefined,
+  // });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, type: string,
     maxLength: number, errorMsg: string) => {
