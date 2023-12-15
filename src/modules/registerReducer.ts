@@ -12,7 +12,7 @@ interface ClearInfoAction {
   type: typeof REGISTER_CLEAR_INFO;
 }
 
-type RegisterState = {
+export type RegisterState = {
   register_type?: number;
   tos_agreed?: boolean;
   name?: string;
@@ -22,7 +22,7 @@ type RegisterState = {
   loginid?: string;
   password?: string;
   passwordConfirm?: string;
-  gender?: number;
+  gender?: string;
 };
 
 const registerFields: (keyof RegisterState)[] = [
