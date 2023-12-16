@@ -5,6 +5,7 @@ import Button from '@components/button/Button.tsx';
 import {limitInputNumber} from '@/utils';
 import {setRegisterInfo} from '@modules/registerReducer.ts';
 import {RootState} from '@/modules';
+import PageCaption from '@components/text/PageCaption.tsx';
 
 const Authorization = () => {
   const registerState = useSelector((state: RootState) => state.register);
@@ -16,8 +17,9 @@ const Authorization = () => {
   const [nameErrorMessage, setNameErrorMessage] =
     useState<string | undefined>(undefined);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [sendDisabled, setSendDisabled] =
-    useState(true);
+  const [firstSendComplete, setFirstSendComplete] =
+    useState(false);
+  const [sendDisabled, setSendDisabled] = useState(true);
   const [authnumErrorMessage/* setAuthnumErrorMessage*/] =
     useState<string | undefined>(undefined);
 
@@ -25,16 +27,22 @@ const Authorization = () => {
     useState(registerState.authorized);
 
   return (<>
-    <div className='p-6'>
-      <p className='text-[24px] font-semibold'>서비스 이용을 위해</p>
-      <p className='text-[24px] font-semibold'>본인 인증을 진행해주세요.</p>
-    </div>
-    <div className='px-6'>
+    <PageCaption lines={['서비스 이용을 위해', '본인 인증을 진행해 주세요.']}/>
+    <div className='px-6 mt-[8px]'>
       <p className='text-[18px] font-semibold mb-2'>이름</p>
       <Input placeholder='이름 입력' id='register-auth-name' onChange={(e) => {
         limitInputNumber(e, 8);
+        if (! e.target.validity.valid) {
+          if (nameErrorMessage === undefined) {
+            setNameErrorMessage('올바른 이름을 입력해 주세요.');
+          }
+        } else {
+          setNameErrorMessage(undefined);
+        }
       }} defaultValue={registerState.name ?? registerState.name}
-      errorMessage={nameErrorMessage} />
+      errorMessage={nameErrorMessage}
+      pattern={'[가-힣a-zA-Z0-9]{2,10}'}
+      />
 
       <p className='text-[18px] font-semibold mt-[16px] mb-2'>이메일</p>
       <div className='flex h-[40px] gap-2'>
@@ -58,13 +66,13 @@ const Authorization = () => {
             defaultValue={registerState.email ?? registerState.email}
           />
         </div>
-        <Button label='인증번호 전송' style={{
+        <Button label={firstSendComplete ? '재전송' : '인증번호 전송'} style={{
           height: '40px',
           fontSize: '16px',
           flexShrink: 0,
         }} disabled={sendDisabled}
         onClick={() => {
-          if (!sendDisabled) {
+          if (!firstSendComplete) {
             const target: HTMLInputElement =
                 (document.getElementById(
                   'register-auth-email') as HTMLInputElement);
@@ -73,14 +81,13 @@ const Authorization = () => {
                 (document.getElementById(
                   'register-auth-name') as HTMLInputElement);
             const name = nameInput.value;
-            if (name === '') {
-              setNameErrorMessage('올바른 입력을 입력해주세요.');
+            if (! nameInput.validity.valid) {
               return;
             }
 
             dispatch(setRegisterInfo({name, email: emailValue}));
 
-            setSendDisabled(true);
+            setFirstSendComplete(true);
             setEmailSent(true);
           }
         }} />

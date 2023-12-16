@@ -8,6 +8,7 @@ import Input from '@components/input/Input.tsx';
 import Button from '@components/button/Button.tsx';
 import FindIdResult from '@pages/findId/FindIdResult.tsx';
 import SmallButton from '@components/button/SmallButton.tsx';
+import PageCaption from '@components/text/PageCaption.tsx';
 
 const FindIdPage = () => {
   const [/* name */, setName] = useState('');
@@ -28,13 +29,10 @@ const FindIdPage = () => {
             isSuccesed ? (
               <FindIdResult/>
             ) : (
-              <div className='flex flex-col h-[calc(100vh-72px)] mx-4'>
-                <div className='flex flex-col my-12 text-left text-[24px] font-bold'>
-                  <p >아이디를 찾기 위해</p>
-                  <p >본인 인증을 진행해 주세요.</p>
-                </div>
-                <div className='flex flex-col'>
-                  <div className='mb-8'>
+              <div className='flex flex-col h-[calc(100vh-72px)]'>
+                <PageCaption lines={['아이디를 찾기 위해', '본인 인증을 진행해 주세요.']}/>
+                <div className='flex flex-col px-6'>
+                  <div className='mb-8 mt-[8px]'>
                     <p className='text-[18px] mb-1 font-bold'>이름</p>
                     <Input placeholder='이름 입력'
                       onChange={(e: ChangeEvent<HTMLInputElement>) => {
@@ -87,7 +85,7 @@ const FindIdPage = () => {
                     </div>
                   )}
                 </div>
-                <div className='flex flex-col mt-auto mb-12' >
+                <div className='flex flex-col mt-auto mb-12 px-6 ' >
                   <Button label="확인" onClick={() => setIsSuccessed(true)}
                     disabled={! isConfirmed}
                   />

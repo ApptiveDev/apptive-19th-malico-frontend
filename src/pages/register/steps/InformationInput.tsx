@@ -4,6 +4,7 @@ import {limitInputNumber} from '@/utils';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@/modules';
 import {RegisterState, setRegisterInfo} from '@modules/registerReducer.ts';
+import PageCaption from '@components/text/PageCaption.tsx';
 
 interface RegisterInputErrorMessages {
   nickname?: string,
@@ -75,10 +76,7 @@ const InformationInput = () => {
 
   return (
     <>
-      <div className='p-6'>
-        <p className='text-[24px] font-semibold'>마리코에서 사용할</p>
-        <p className='text-[24px] font-semibold'>계정 정보를 입력해주세요.</p>
-      </div>
+      <PageCaption lines={['마리코에서 사용할', '계정 정보를 입력해 주세요.']} />
       <div className='px-6'>
         <p className='text-[18px] font-semibold mb-2'>닉네임</p>
         <Input

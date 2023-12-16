@@ -3,6 +3,7 @@ import Checkbox from '@components/input/Checkbox.tsx';
 import {useDispatch, useSelector} from 'react-redux';
 import {setRegisterInfo} from '@modules/registerReducer.ts';
 import {RootState} from '@/modules';
+import PageCaption from '@components/text/PageCaption.tsx';
 
 const UserAgreement = () => {
   const strokeRef = useRef<SVGPathElement>(null);
@@ -34,12 +35,9 @@ const UserAgreement = () => {
     'text-white bg-primary' :
     'text-black bg-light_grey';
   return (<>
-    <div className='p-6'>
-      <p className='text-[24px] font-semibold'>마리코 서비스 이용약관에</p>
-      <p className='text-[24px] font-semibold'>동의해 주세요.</p>
-    </div>
+    <PageCaption lines={['마리코 서비스 이용약관에', '동의해 주세요.']}/>
     <div className='px-6'>
-      <div className='mt-[40px] h-[256px] w-full flex flex-col items-center'>
+      <div className='mt-[8px] h-[256px] w-full flex flex-col items-center'>
         <div className={agreeAllClass}
           onClick={() => {
             setPrvPolicyAgreed(!checkedAll);
