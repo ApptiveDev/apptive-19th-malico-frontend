@@ -59,12 +59,12 @@ const FindIdPage = () => {
                         {isConfirmed ? (<button className='bg-gray-100 text-dark_grey
                          h-[40px] w-[120px] rounded-md -mt-2 transition duration-300
                          ease-in-out hover:bg-primary-transition text-[18px] focus:outline-none
-                         focus:ring focus:ring-blue-200 font-apple'>인증 완료</button>
+                         focus:ring focus:ring-blue-200'>인증 완료</button>
                         ) : (
                           <button className='bg-primary text-white h-[40px] w-[120px]
                            rounded-md -mt-2 transition duration-300 ease-in-out
                            hover:bg-primary-transition text-[18px] focus:outline-none focus:ring
-                           focus:ring-blue-200 font-apple' onClick={() => setIsSended(true)}>{
+                           focus:ring-blue-200' onClick={() => setIsSended(true)}>{
                               isSended ? ('재전송') : ('인증번호 전송')
                             }</button>
                         )}
@@ -88,7 +88,7 @@ const FindIdPage = () => {
                           <button className='bg-primary text-white h-[40px] w-[120px]
                           rounded-md -mt-2 transition duration-300 ease-in-out
                           hover:bg-primary-transition text-[18px] focus:outline-none focus:ring
-                          focus:ring-blue-200 font-apple'
+                          focus:ring-blue-200'
                           onClick={() => setIsConfirmed(true)}>인증번호 확인</button>
                         </div>
                       </div>
@@ -102,7 +102,7 @@ const FindIdPage = () => {
                     ) : (
                       <button className='bg-gray-100 text-dark_grey h-[52px] rounded-md
                     transition duration-300 ease-in-out hover:bg-primary-transition
-                    text-[18px] font-apple'>확인</button>
+                    text-[18px]'>확인</button>
                     )
                   }
                 </div>

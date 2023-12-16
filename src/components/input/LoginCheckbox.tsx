@@ -28,7 +28,7 @@ const LoginCheckbox = ({checked, onChange, label}: CheckboxProps) => {
           onChange={onChange}
         />
 
-        <p className='text-primary font-bold font-apple ml-[4px]'>
+        <p className='text-primary font-bold ml-[4px]'>
           {label && label}</p>
       </label>
     </>

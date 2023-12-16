@@ -36,7 +36,7 @@ const FindIdResult = () => {
                 border-primary border h-[52px] rounded-md
                 transition duration-300 ease-in-out
                 hover:bg-primary-transition
-                text-[18px] font-apple'>비밀번호 찾기
+                text-[18px]'>비밀번호 찾기
               </button>
             </div>
           </div>
@@ -65,7 +65,7 @@ const FindIdResult = () => {
               <button className='bg-white text-primary border-primary
                border h-[52px] rounded-md transition
                 duration-300 ease-in-out hover:bg-primary-transition
-                text-[18px] font-apple'>처음으로 돌아가기
+                text-[18px]'>처음으로 돌아가기
               </button>
             </div>
           </div>

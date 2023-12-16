@@ -10,7 +10,7 @@ const Button = ({label, disabled, ...rest}: ButtonProps) => {
     `h-[52px] px-5 rounded-md
   transition duration-300 ease-in-out hover:bg-primary-transition
   text-[18px] focus:outline-none
-  focus:ring-grey-200 font-apple `;
+  focus:ring-grey-200 `;
   btnClass += disabled? 'bg-light_grey text-grey' : 'bg-primary text-white';
   return (
     <button
