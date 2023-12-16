@@ -1,7 +1,10 @@
+import Navbar from '@components/navbar/Navbar.tsx';
+
 const Home = () => {
   return (
     <>
-      <p>Marico App</p>
+      <Navbar title={'MARICO'} hasNotificationButton={true}
+        containsHeadline={true}/>
     </>
   );
 };
