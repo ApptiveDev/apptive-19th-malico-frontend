@@ -95,6 +95,7 @@ const Authorization = () => {
       {emailSent ? <>
         <p className='text-blue-500 text-[14px] mt-[8px] ml-[4px]'>
           인증번호가 전송되었습니다.</p>
+        <p className='text-[18px] font-semibold mt-[16px] mb-2'>인증번호</p>
         <div className='flex h-[40px] mt-[16px] gap-2'>
           <div className='flex grow h-[40px]'>
             <Input
