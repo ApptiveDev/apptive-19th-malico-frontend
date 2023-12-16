@@ -41,7 +41,11 @@ const LoginPage = (): ReactNode => {
               setUserId(inputId);
               limitInputNumber(e, 10); // ID의 최대 글자수 제한: 10글자.
               // 사용자 정보 db 스키마가 정의되면 상수로서 정의하는 것이 좋을 것 같음
-            }}></Input>
+            }}
+            style={{
+              marginBottom: '8px',
+            }}
+          ></Input>
 
           <Input placeholder='비밀번호 입력' type='password'
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
