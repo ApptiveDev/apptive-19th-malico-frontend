@@ -23,7 +23,7 @@ const InformationInput = () => {
       password: undefined,
       passwordConfirm: undefined,
     });
-  const [gender, setGender] = useState<string>('');
+  const [gender, setGender] = useState<string|undefined>(registerState.gender);
   const [password, setPassword] = useState<string>('');
   const [passwordConfirm, setPasswordConfirm] = useState<string>('');
 
@@ -86,6 +86,7 @@ const InformationInput = () => {
           onChange={(e) => handleInputChange(e, 'nickname',
             10, '한글, 영문, 숫자 포함 2~10자 이내로 입력해주세요.')}
           pattern={'[가-힣a-zA-Z0-9]{2,10}'}
+          defaultValue={registerState.nickname}
         />
         <p className='text-[18px] font-semibold mb-2 mt-[16px]'>아이디</p>
         <Input
@@ -95,6 +96,7 @@ const InformationInput = () => {
           onChange={(e) => handleInputChange(e, 'loginid',
             20, '영문 소문자, 숫자 포함 6~20자 이내로 입력해주세요.')}
           pattern={'[a-z0-9]{6,20}'}
+          defaultValue={registerState.nickname}
         />
         <p className='text-[18px] font-semibold mb-2 mt-[16px]'>비밀번호</p>
         <Input
