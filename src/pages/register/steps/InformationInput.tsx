@@ -96,7 +96,7 @@ const InformationInput = () => {
           onChange={(e) => handleInputChange(e, 'loginid',
             20, '영문 소문자, 숫자 포함 6~20자 이내로 입력해주세요.')}
           pattern={'[a-z0-9]{6,20}'}
-          defaultValue={registerState.nickname}
+          defaultValue={registerState.loginid}
         />
         <p className='text-[18px] font-semibold mb-2 mt-[16px]'>비밀번호</p>
         <Input
