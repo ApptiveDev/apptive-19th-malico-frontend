@@ -24,7 +24,7 @@ const Navbar = (props: NavbarProps) => {
             }}> </IconButton> : null}
         </div>
         <div className='flex flex-1 h-[46px] justify-center items-center'>
-          <p className='font-apple text-[18px] mt-[3px] font-bold'>
+          <p className='text-[18px] mt-[3px] font-bold'>
             {props.title}
           </p>
         </div>

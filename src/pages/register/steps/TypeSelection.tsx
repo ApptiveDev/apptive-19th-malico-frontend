@@ -5,6 +5,7 @@ import {RootState} from '@/modules';
 import {useEffect, useRef} from 'react';
 import {setRegisterInfo} from '@modules/registerReducer.ts';
 import Constants from '@/constants';
+import PageCaption from '@components/text/PageCaption.tsx';
 
 const TypeSelection = () => {
   const registerState =
@@ -31,11 +32,8 @@ const TypeSelection = () => {
   }, [registerState.register_type]);
   return (
     <>
-      <div className='p-6'>
-        <p className='text-[24px] font-semibold'>마리코에서 사용할 계정의</p>
-        <p className='text-[24px] font-semibold'>유형을 선택해 주세요.</p>
-      </div>
-      <div className='mt-[40px] h-[256px] w-full flex flex-col justify-between
+      <PageCaption lines={['마리코에서 사용할 계정의', '유형을 선택해 주세요.']} />
+      <div className='mt-[8px] h-[256px] w-full flex flex-col justify-between
        items-center border-box'>
         <div ref={customerRef} className='w-[340px] h-[120px] flex
         border rounded-[8px] border-middle_grey items-center px-6 cursor-pointer'
