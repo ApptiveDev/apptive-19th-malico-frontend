@@ -16,13 +16,14 @@ const LoginCheckbox = ({checked, onChange, label}: CheckboxProps) => {
         <input type='checkbox'
           className='appearance-none w-[24px] h-[24px]
          border rounded-full border-gray-400
-          checked:bg-blue-600 checked:border-transparent
+          checked:bg-primary checked:border-transparent
           focus:outline-none'
           style={{
             backgroundImage: 'url("' + checkIcon + '")',
             backgroundSize: '70%',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: '50% 55%',
+            marginRight: '4px',
           }}
           checked={checked}
           onChange={onChange}
