@@ -28,7 +28,7 @@ const FindIdResult = () => {
               </div>
             </div>
 
-            <div className='flex flex-col mt-auto mb-12 space-y-6'>
+            <div className='flex flex-col mt-auto mb-12 space-y-[8px]'>
               <Button label={'로그인'} onClick={() => {
                 setExistId(!existId);
               }}></Button>
@@ -58,7 +58,7 @@ const FindIdResult = () => {
               </div>
             </div>
 
-            <div className='flex flex-col mt-auto mb-12 space-y-6'>
+            <div className='flex flex-col mt-auto mb-12 space-y-[8px]'>
               <Button label={'회원가입'} onClick={() => {
                 setExistId(!existId);
               }}>처음으로 돌아가기</Button>
