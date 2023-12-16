@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    @apply font-pretendard;
+    @apply font-pretendard tracking-[-.025rem];
 }
 ::-webkit-scrollbar-track {
     background: transparent;
