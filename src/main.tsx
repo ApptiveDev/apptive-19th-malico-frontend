@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Home from '@pages/Home.tsx';
+import MainPage from '@pages/MainPage.tsx';
 import LoginPage from '@pages/LoginPage.tsx';
 import RegisterPage from '@pages/register/RegisterPage.tsx';
 
@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <Provider store={rootStore}>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Home />}></Route>
+          <Route path='/' element={<MainPage />}></Route>
           <Route path='/login' element={<LoginPage />}></Route>
           <Route path='/register' element={<RegisterPage />}></Route>
           <Route path='/find-id' element={<FindIdPage />}></Route>
