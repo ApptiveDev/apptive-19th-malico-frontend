@@ -3,7 +3,7 @@ const AUTH_ERROR = 'auth/AUTH_ERROR';
 const AUTH_LOADING = 'auth/AUTH_LOADING';
 const AUTH_LOGOUT = 'auth/AUTH_LOGOUT';
 
-const ACCESS_TOKEN_ITEM_KEY = 'access_token';
+export const ACCESS_TOKEN_ITEM_KEY = 'access_token';
 
 interface AuthSuccessAction {
   type: typeof AUTH_SUCCESS;
