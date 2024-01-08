@@ -2,7 +2,7 @@ import axios from 'axios';
 import {ACCESS_TOKEN_ITEM_KEY} from '@modules/authReducer.ts';
 
 const instance = axios.create({
-  baseURL: process.env.BASE_SERVER_URL,
+  baseURL: import.meta.env.BASE_SERVER_URL,
   withCredentials: true,
 });
 instance.defaults.withCredentials = true;
