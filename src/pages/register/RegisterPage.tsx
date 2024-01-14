@@ -5,7 +5,7 @@ import Constants from '@/constants';
 import StickyFooter from '@components/footer/StickyFooter.tsx';
 import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
 import ScrollableContainer from '@components/container/ScrollableContainer.tsx';
-import {useLocation} from 'react-router-dom';
+import {Navigate, useLocation} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {clearRegisterInfo, getRequiredInfo} from '@modules/registerReducer.ts';
 import RegisterContent from '@pages/register/RegisterContent.tsx';
@@ -55,6 +55,14 @@ const RegisterPage = () => {
       setCanComplete(false);
     }
   }, [registerState, currentProgress]);
+
+  const authenticated = useSelector((state: RootState) =>
+    state.auth.authenticated,
+  );
+
+  if (authenticated) {
+    return <Navigate to={'/'} />;
+  }
   return (
     <PageContainer>
 
