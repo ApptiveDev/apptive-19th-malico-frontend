@@ -9,7 +9,7 @@ export default {
       fontFamily: {
         'apple': ['Apple SD Gothic Neo', 'sans-serif'],
         'pretendard': ['Pretendard Variable', 'sans-serif'],
-        'quicksand': ['Quicksand', 'sans-serif']
+        'quicksand': ['Quicksand', 'sans-serif'],
       },
       colors: {
         'middle_grey': 'rgba(229, 229, 234, 1)',
