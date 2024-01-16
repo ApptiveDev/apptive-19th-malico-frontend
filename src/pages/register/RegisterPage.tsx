@@ -71,6 +71,7 @@ const RegisterPage = () => {
       const registerTypes = Constants.register.infos;
       if (registerState.register_type === registerTypes.TYPE_CUSTOMER) {
         axiosInstance.post('/auth/member/signup', data).then(() => {
+          // const userInfo: UserInfo = res.data;
           console.log('회원가입 완료 페이지로 이동');
         }).catch((err) => {
           if (err.response) {
@@ -88,6 +89,21 @@ const RegisterPage = () => {
   if (authenticated) {
     return <Navigate to={'/'} />;
   }
+
+  const getCompleteButton = () => {
+    if (currentProgress === constant.page_nums.PAGE_REGISTRATION_COMPLETE) {
+      return (<div className='w-full h-full max-w-[400px] flex flex-col px-6 py-6 gap-2'>
+        <Button label={'프로필 등록하기'} />
+        <Button label={'홈으로 이동하기'} style={{
+          backgroundColor: 'white',
+          color: 'black',
+          border: 'black 1px solid',
+        }} onClick={() => {
+
+        }}/>
+      </div>);
+    }
+  };
   return (
     <PageContainer>
 
@@ -102,12 +118,15 @@ const RegisterPage = () => {
         </ResponsiveContainer>
       </ScrollableContainer>
       <StickyFooter>
-        {currentProgress < constant.page_nums.PAGE_INPUT_INFORMATION ?
-          <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
-            <RegisterStepButton currentProgress={currentProgress} />
-          </div> : <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
-            <Button label='확인' disabled={!canComplete} onClick={registerConfirm}/>
-          </div>}
+        {currentProgress === constant.page_nums.PAGE_REGISTRATION_COMPLETE ?
+          getCompleteButton() : currentProgress < constant.page_nums.PAGE_INPUT_INFORMATION ?
+            <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
+              <RegisterStepButton currentProgress={currentProgress} />
+            </div> : <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
+              <Button label='확인' disabled={!canComplete} onClick={registerConfirm}/>
+            </div>
+        }
+
       </StickyFooter>
     </PageContainer>
   );
