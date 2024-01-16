@@ -12,6 +12,8 @@ import RegisterContent from '@pages/register/RegisterContent.tsx';
 import RegisterStepButton from '@components/button/RegisterStepButton.tsx';
 import Button from '@components/button/Button.tsx';
 import {RootState} from '@/modules';
+import axiosInstance from '@utils/AxiosInstance.ts';
+import {sanitizeString} from '@/utils';
 
 const RegisterPage = () => {
   const constant = Constants.register;
@@ -56,6 +58,29 @@ const RegisterPage = () => {
     }
   }, [registerState, currentProgress]);
 
+  const registerConfirm = () => {
+    if (canComplete) {
+      const data = {
+        name: registerState.name,
+        userId: registerState.loginid,
+        email: registerState.email,
+        password: registerState.password,
+        nickname: registerState.nickname,
+        gender: registerState.gender,
+      };
+      const registerTypes = Constants.register.infos;
+      if (registerState.register_type === registerTypes.TYPE_CUSTOMER) {
+        axiosInstance.post('/auth/member/signup', data).then(() => {
+          console.log('회원가입 완료 페이지로 이동');
+        }).catch((err) => {
+          if (err.response) {
+            alert(sanitizeString(err.response.data.message));
+          }
+        });
+      }
+    }
+  };
+
   const authenticated = useSelector((state: RootState) =>
     state.auth.authenticated,
   );
@@ -81,7 +106,7 @@ const RegisterPage = () => {
           <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
             <RegisterStepButton currentProgress={currentProgress} />
           </div> : <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
-            <Button label='확인' disabled={canComplete}/>
+            <Button label='확인' disabled={!canComplete} onClick={registerConfirm}/>
           </div>}
       </StickyFooter>
     </PageContainer>
