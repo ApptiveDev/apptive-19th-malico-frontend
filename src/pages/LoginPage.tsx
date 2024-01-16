@@ -32,7 +32,7 @@ const LoginPage = (): ReactNode => {
   const authRequest = () => {
     const data = {userId, password: userPassword};
     AxiosInstance.post('/auth/user/login', data).then((res) => {
-      dispatch(authSuccess({}));
+      dispatch(authSuccess({nickname: '', profile_image: ''})); // 추후에 api 호출해서 정보 받아와야함
       const accessToken = res.data.accessToken;
       localStorage.setItem(ACCESS_TOKEN_ITEM_KEY, accessToken);
     });
