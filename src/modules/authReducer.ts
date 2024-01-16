@@ -1,3 +1,5 @@
+import {UserInfo} from '@/models/UserInfo.ts';
+
 const AUTH_SUCCESS = 'auth/AUTH_SUCCESS';
 const AUTH_ERROR = 'auth/AUTH_ERROR';
 const AUTH_LOADING = 'auth/AUTH_LOADING';
@@ -7,7 +9,7 @@ export const ACCESS_TOKEN_ITEM_KEY = 'access_token';
 
 interface AuthSuccessAction {
   type: typeof AUTH_SUCCESS;
-  myInfo: object;
+  myInfo: UserInfo;
 }
 
 interface AuthErrorAction {
@@ -33,7 +35,7 @@ interface AuthState {
   isLoading: boolean;
   authenticated: boolean;
   errorMessage: string | null;
-  myInfo: object | null; // 유저 정보를 나타내는 인터페이스 필요
+  myInfo: UserInfo | null; // 유저 정보를 나타내는 인터페이스 필요
 }
 
 const initialState: AuthState = {
@@ -49,7 +51,7 @@ export const authLoading = (): AuthLoadingAction => {
   };
 };
 
-export const authSuccess = (myInfo: object): AuthSuccessAction => {
+export const authSuccess = (myInfo: UserInfo): AuthSuccessAction => {
   return {
     type: AUTH_SUCCESS,
     myInfo: myInfo,
