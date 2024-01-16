@@ -2,10 +2,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useState} from 'react';
 import Input from '@components/input/Input.tsx';
 import Button from '@components/button/Button.tsx';
-import {limitInputNumber} from '@/utils';
+import {limitInputNumber, sanitizeString} from '@/utils';
 import {setRegisterInfo} from '@modules/registerReducer.ts';
 import {RootState} from '@/modules';
 import PageCaption from '@components/text/PageCaption.tsx';
+import axiosInstance from '@utils/AxiosInstance.ts';
 
 const Authorization = () => {
   const registerState = useSelector((state: RootState) => state.register);
@@ -22,9 +23,34 @@ const Authorization = () => {
   const [sendDisabled, setSendDisabled] = useState(true);
   const [authnumErrorMessage/* setAuthnumErrorMessage*/] =
     useState<string | undefined>(undefined);
+  const [verificationCode, setVerificationCode] = useState<string>();
 
   const [emailSent, setEmailSent] =
     useState(registerState.authorized);
+
+  const sendVerification = (email: string) => {
+    setSendDisabled(true);
+    axiosInstance.post('/auth/user/sign/verification-code', {email}).then(() => {
+      setFirstSendComplete(true);
+      setEmailSent(true);
+      setSendDisabled(false);
+    }).catch((err) => {
+      if (err.response) {
+        alert(sanitizeString(err.response.data.message));
+        setSendDisabled(false);
+        setFirstSendComplete(false);
+        setEmailSent(false);
+      }
+    });
+  };
+  const verifyCode = async () => {
+    try {
+      await axiosInstance.get('/auth/user/sign/verification-code?code=' + verificationCode);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  };
 
   return (<>
     <PageCaption lines={['서비스 이용을 위해', '본인 인증을 진행해 주세요.']}/>
@@ -86,9 +112,7 @@ const Authorization = () => {
             }
 
             dispatch(setRegisterInfo({name, email: emailValue}));
-
-            setFirstSendComplete(true);
-            setEmailSent(true);
+            sendVerification(emailValue);
           }
         }} />
       </div>
@@ -102,6 +126,7 @@ const Authorization = () => {
               placeholder={registerState.authorized ? '인증 완료' : '인증번호를 입력해주세요.'}
               onChange={(e) => {
                 limitInputNumber(e, 6);
+                setVerificationCode(e.target.value);
               }}
               errorMessage={authnumErrorMessage}
               id='register-auth-number'
@@ -113,10 +138,16 @@ const Authorization = () => {
             fontSize: '16px',
             flexShrink: 0,
           }} disabled={registerState.authorized}
-          onClick={() => {
-            alert('인증이 완료되었습니다.');
-            dispatch(setRegisterInfo({authorized: true}));
-          }} />
+          onClick={async () => {
+            const authorized = await verifyCode();
+            if (authorized) {
+              alert('인증이 완료되었습니다.');
+              dispatch(setRegisterInfo({authorized}));
+            } else {
+              alert('인증에 실패했습니다. 인증번호를 다시 확인해 주세요.');
+            }
+          }}
+          />
         </div>
       </> : null}
     </div>
