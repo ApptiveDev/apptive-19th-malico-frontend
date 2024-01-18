@@ -34,7 +34,6 @@ const registerFields: (keyof RegisterState)[] = [
   'nickname',
   'loginid',
   'password',
-  'passwordConfirm',
   'gender',
 ];
 
