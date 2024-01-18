@@ -5,9 +5,9 @@ import Constants from '@/constants';
 import StickyFooter from '@components/footer/StickyFooter.tsx';
 import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
 import ScrollableContainer from '@components/container/ScrollableContainer.tsx';
-import {Navigate, useLocation} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {clearRegisterInfo, getRequiredInfo} from '@modules/registerReducer.ts';
+import {Navigate, useLocation, useNavigate} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {getRequiredInfo} from '@modules/registerReducer.ts';
 import RegisterContent from '@pages/register/RegisterContent.tsx';
 import RegisterStepButton from '@components/button/RegisterStepButton.tsx';
 import Button from '@components/button/Button.tsx';
@@ -26,7 +26,7 @@ const RegisterPage = () => {
   const [canComplete, setCanComplete] = useState<boolean>(false);
 
   const location = useLocation();
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const progressNum = constant.getProgressFromHash(location.hash);
@@ -37,22 +37,16 @@ const RegisterPage = () => {
   }, [location.hash]);
 
   useEffect(() => {
-    if (!location.pathname.startsWith('/register')) {
-      dispatch(clearRegisterInfo());
-    }
-  }, [location, dispatch]);
-
-  useEffect(() => {
     if (currentProgress === constant.page_nums.PAGE_INPUT_INFORMATION) {
       let completeChange = true;
       const requiredInfo = getRequiredInfo(currentProgress);
       for (const key of requiredInfo) {
         if (typeof registerState[key] === 'undefined' || registerState[key] ===
-          null) {
+          null || registerState[key] === '') {
           completeChange = false;
         }
       }
-      setCanComplete(! completeChange);
+      setCanComplete(completeChange);
     } else {
       setCanComplete(false);
     }
@@ -68,17 +62,15 @@ const RegisterPage = () => {
         nickname: registerState.nickname,
         gender: registerState.gender,
       };
-      const registerTypes = Constants.register.infos;
-      if (registerState.register_type === registerTypes.TYPE_CUSTOMER) {
-        axiosInstance.post('/auth/member/signup', data).then(() => {
-          // const userInfo: UserInfo = res.data;
-          console.log('회원가입 완료 페이지로 이동');
-        }).catch((err) => {
-          if (err.response) {
-            alert(sanitizeString(err.response.data.message));
-          }
-        });
-      }
+      const registerUrl = registerState.register_type ?
+        '/auth/stylist/signup' : '/auth/member/signup';
+      axiosInstance.post(registerUrl, data).then((res) => {
+        navigate('/register-complete', {state: {registerData: res.data}});
+      }).catch((err) => {
+        if (err.response) {
+          alert(sanitizeString(err.response.data.message));
+        }
+      });
     }
   };
 
@@ -89,21 +81,6 @@ const RegisterPage = () => {
   if (authenticated) {
     return <Navigate to={'/'} />;
   }
-
-  const getCompleteButton = () => {
-    if (currentProgress === constant.page_nums.PAGE_REGISTRATION_COMPLETE) {
-      return (<div className='w-full h-full max-w-[400px] flex flex-col px-6 py-6 gap-2'>
-        <Button label={'프로필 등록하기'} />
-        <Button label={'홈으로 이동하기'} style={{
-          backgroundColor: 'white',
-          color: 'black',
-          border: 'black 1px solid',
-        }} onClick={() => {
-
-        }}/>
-      </div>);
-    }
-  };
   return (
     <PageContainer>
 
@@ -118,15 +95,13 @@ const RegisterPage = () => {
         </ResponsiveContainer>
       </ScrollableContainer>
       <StickyFooter>
-        {currentProgress === constant.page_nums.PAGE_REGISTRATION_COMPLETE ?
-          getCompleteButton() : currentProgress < constant.page_nums.PAGE_INPUT_INFORMATION ?
-            <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
-              <RegisterStepButton currentProgress={currentProgress} />
-            </div> : <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
-              <Button label='확인' disabled={!canComplete} onClick={registerConfirm}/>
-            </div>
+        {currentProgress < constant.page_nums.PAGE_INPUT_INFORMATION ?
+          <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
+            <RegisterStepButton currentProgress={currentProgress} />
+          </div> : <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
+            <Button label='확인' disabled={!canComplete} onClick={registerConfirm}/>
+          </div>
         }
-
       </StickyFooter>
     </PageContainer>
   );
