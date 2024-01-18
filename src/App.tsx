@@ -14,6 +14,8 @@ import {
 } from '@modules/authReducer.ts';
 import RegisterCompletionPage from '@pages/register/RegisterCompletionPage.tsx';
 import {clearRegisterInfo} from '@modules/registerReducer.ts';
+import FindPasswordPage from '@pages/findPassword/FindPasswordPage.tsx';
+import ResetPasswordPage from '@pages/findPassword/ResetPasswordPage.tsx';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -53,7 +55,8 @@ const App = () => {
     <Route path='/login' element={<LoginPage />}></Route>
     <Route path='/register' element={<RegisterPage />}></Route>
     <Route path='/find-id' element={<FindIdPage />}></Route>
-    <Route path='/find-password' element={<FindIdPage />}></Route>
+    <Route path='/find-password' element={<FindPasswordPage />}></Route>
+    <Route path='/reset-password' element={<ResetPasswordPage />}></Route>
     <Route path='/register-complete' element={<RegisterCompletionPage />}></Route>
   </Routes>;
 };

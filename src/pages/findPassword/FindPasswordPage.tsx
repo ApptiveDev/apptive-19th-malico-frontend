@@ -12,10 +12,13 @@ import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
 import StickyFooter from '@components/footer/StickyFooter.tsx';
 import FindIdResult from '@pages/findId/FindIdResult.tsx';
 import axiosInstance from '@utils/AxiosInstance.ts';
+import {useNavigate} from 'react-router-dom';
 
-const FindIdPage = () => {
+const FindPasswordPage = () => {
   const registerState = useSelector((state: RootState) => state.register);
   const [emailErrorMessage, setEmailErrorMessage] =
+    useState<string | undefined>(undefined);
+  const [idErrorMessage, setIdErrorMessage] =
     useState<string | undefined>(undefined);
   const [firstSendComplete, setFirstSendComplete] =
     useState(false);
@@ -31,7 +34,9 @@ const FindIdPage = () => {
   const [authorized, setAuthorized] = useState<boolean>(false);
   const [userId, setUserId] = useState<string>('');
 
-  const [idExists, setIdExists] = useState<boolean>(false);
+  const [passwordExists, setPasswordExists] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const sendVerification = (email: string) => {
     setFirstSendComplete(true);
@@ -66,7 +71,9 @@ const FindIdPage = () => {
       const userid = res.data.data;
       setUserId(userid);
       setAuthorized(true);
-      setIdExists(true);
+      setPasswordExists(true);
+
+      navigate('/reset-password', {state: {passwordExists}});
     } catch (e) {
       console.log(e);
       setAuthorized(true);
@@ -74,9 +81,27 @@ const FindIdPage = () => {
     }
   };
 
-  const getFindIdForm = () => {
-    return (<><PageCaption lines={['아이디를 찾기 위해', '본인 인증을 진행해 주세요.']} />
+  const getFindPasswordForm = () => {
+    return (<><PageCaption lines={['비밀번호를 찾기 위해', '본인 인증을 진행해 주세요.']} />
       <div className='px-6 mt-[8px]'>
+        <p className='text-[18px] font-semibold mt-[16px] mb-2'>아이디</p>
+        <Input placeholder='아이디 입력'
+          pattern='[a-z0-9]{6,20}'
+          onChange={(e) => {
+            limitInputNumber(e, 20);
+            if (!e.target.validity.valid) {
+              setIdErrorMessage('아이디를 다시 확인해주세요.');
+              setSendDisabled(true);
+            } else {
+              setIdErrorMessage(undefined);
+              setSendDisabled(false);
+              setUserId(e.target.value);
+            }
+          }}
+          errorMessage={idErrorMessage}
+          id='register-auth-email'
+          disabled={firstSendComplete} />
+
         <p className='text-[18px] font-semibold mt-[16px] mb-2'>이메일</p>
         <div className='flex h-[40px] gap-2'>
           <div className='flex grow h-[40px]'>
@@ -144,42 +169,16 @@ const FindIdPage = () => {
   };
 
   return (<PageContainer>
-    <Navbar title={'아이디 찾기'} hasBackwardButton={true}/>
+    <Navbar title={'비밀번호 찾기'} hasBackwardButton={true}/>
     <ScrollableContainer>
       <ResponsiveContainer>
-        {authorized ? <FindIdResult idExists={idExists} userId={userId} /> : getFindIdForm()}
+        {authorized ? <FindIdResult idExists={passwordExists}
+          userId={userId} /> : getFindPasswordForm()}
       </ResponsiveContainer>
     </ScrollableContainer>
     <StickyFooter>
-      {authorized ?
-        <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
-          {authorized ?
-            idExists ?
-              <div className='w-full h-full max-w-[400px] flex flex-col px-6 py-6 gap-2'>
-                <Button label={'로그인'} onClick={() => {}}>
-                </Button>
-                <Button label={'비밀번호 찾기'} style={{
-                  backgroundColor: 'white',
-                  borderColor: 'black',
-                  color: 'black',
-                  border: '1px black solid',
-                }}></Button>
-              </div> :
-              <div className='w-full h-full max-w-[400px] flex flex-col px-6 py-6 gap-2'>
-                <Button label={'회원가입'} onClick={() => {}}>
-                </Button>
-                <Button label={'처음으로 돌아가기'} style={{
-                  backgroundColor: 'white',
-                  borderColor: 'black',
-                  color: 'black',
-                  border: '1px black solid',
-                }}></Button>
-              </div> : null
-          }
-        </div> : null
-      }
     </StickyFooter>
   </PageContainer>);
 };
 
-export default FindIdPage;
+export default FindPasswordPage;
