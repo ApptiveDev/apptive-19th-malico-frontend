@@ -20,14 +20,18 @@ instance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (! error.response) {
+      return Promise.reject(error);
+    }
+    if (!originalRequest._retry && error.response.status === 500) {
       originalRequest._retry = true;
       try {
-        const response = await axios.post(import.meta.env.VITE_BASE_SERVER_URL, '/refresh');
+        const response = await axios.post(import.meta.env.VITE_BASE_SERVER_URL + '/refresh');
         localStorage.setItem(ACCESS_TOKEN_ITEM_KEY, response.data.accessToken);
         originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
         return axios(originalRequest);
       } catch (refreshError) {
+        localStorage.removeItem(ACCESS_TOKEN_ITEM_KEY);
         return Promise.reject(refreshError);
       }
     }
