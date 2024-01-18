@@ -3,7 +3,6 @@ import TypeSelection from '@pages/register/steps/TypeSelection.tsx';
 import UserAgreement from '@pages/register/steps/UserAgreement.tsx';
 import Authorization from '@pages/register/steps/Authorization.tsx';
 import InformationInput from '@pages/register/steps/InformationInput.tsx';
-import RegisterCompletionPage from '@pages/register/RegisterCompletionPage.tsx';
 
 type RegisterContentProp = {
   currentProgress: number;
