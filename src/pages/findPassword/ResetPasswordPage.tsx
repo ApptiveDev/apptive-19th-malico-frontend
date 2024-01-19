@@ -3,22 +3,38 @@ import PageContainer from '@components/container/PageContainer.tsx';
 import ScrollableContainer from '@components/container/ScrollableContainer.tsx';
 import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
 import PageCaption from '@components/text/PageCaption.tsx';
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import checkFailIcon from '@assets/icons/check_fail.svg';
 import StickyFooter from '@components/footer/StickyFooter.tsx';
 import Button from '@components/button/Button.tsx';
 import Input from '@components/input/Input.tsx';
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, useEffect, useState} from 'react';
+import axiosInstance from '@utils/AxiosInstance.ts';
+import {sanitizeString} from '@/utils';
 
 const ResetPasswordPage = () => {
   const location = useLocation();
-  const passwordExists = location.state ? location.state.passwordExists : true; // falseify
+  const passwordExists = location.state ? location.state.passwordExists : true;
+  const userId = location.state ? location.state.userId : null;
+  const verificationCode = location.state ? location.state.verificationCode : null;
 
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>();
   const [passConfirmErrorMessage, setPassConfirmErrorMessage] = useState<string>();
 
   const [password, setPassword] = useState<string>();
   const [passwordConfirm, setPasswordConfirm] = useState<string>();
+
+  const [canConfirm, setCanConfirm] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (! passwordErrorMessage && ! passConfirmErrorMessage) {
+      setCanConfirm(true);
+    } else {
+      setCanConfirm(false);
+    }
+  }, [passwordErrorMessage, passConfirmErrorMessage]);
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>, errorMessage: string) => {
     if (! e.target.validity) {
@@ -35,6 +51,26 @@ const ResetPasswordPage = () => {
       setPassConfirmErrorMessage('비밀번호가 동일하지 않습니다.');
     }
   };
+
+  const applyPasswordChange = () => {
+    const data = {
+      code: verificationCode,
+      userId,
+      password: password,
+    };
+    axiosInstance.patch('/auth/user/search/password', data).then(() => {
+      alert('비밀번호 변경이 완료되었습니다.');
+      navigate('/login');
+    }).catch((e) => {
+      if (e.response) {
+        alert(sanitizeString(e.response.data.message));
+      }
+    });
+  };
+
+  // if (! location.state) {
+  //   return <Navigate to={'/'} />;
+  // }
 
   return <PageContainer>
     <Navbar title={'새 비밀번호 입력'} hasBackwardButton={true}>
@@ -92,16 +128,22 @@ const ResetPasswordPage = () => {
     <StickyFooter>
       {passwordExists ?
         <div className='w-full h-full max-w-[400px] flex flex-col px-6 py-6 gap-2'>
-          <Button label={'확인'}></Button>
+          <Button label={'확인'} disabled={!canConfirm} onClick={() => {
+            applyPasswordChange();
+          }}></Button>
         </div>:
         <div className='w-full h-full max-w-[400px] flex flex-col px-6 py-6 gap-2'>
-          <Button label={'회원가입'} onClick={() => {}}>
+          <Button label={'회원가입'} onClick={() => {
+            navigate('/register');
+          }}>
           </Button>
           <Button label={'처음으로 돌아가기'} style={{
             backgroundColor: 'white',
             borderColor: 'black',
             color: 'black',
             border: '1px black solid',
+          }} onClick={() => {
+            navigate('/');
           }}></Button>
         </div>}
     </StickyFooter>
