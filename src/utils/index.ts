@@ -14,3 +14,16 @@ export const limitInputNumber = (
     event.target.value = value.slice(0, limit);
   }
 };
+
+export const sanitizeString = (str: string) => {
+  const map: { [key:string]: string } = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    '\'': '&#x27;',
+    '/': '&#x2F;',
+  };
+  const reg = /[&<>"'/]/ig;
+  return str.replace(reg, (match)=>(map[match]));
+};

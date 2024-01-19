@@ -1,4 +1,4 @@
-import {ChangeEvent, useEffect, useState} from 'react';
+import {ChangeEvent, useState} from 'react';
 import Input from '@components/input/Input.tsx';
 import {limitInputNumber} from '@/utils';
 import {useDispatch, useSelector} from 'react-redux';
@@ -48,31 +48,13 @@ const InformationInput = () => {
       dispatch(setRegisterInfo({[type]: target.value}));
     }
   };
-
-  useEffect(() => {
-    if (password !== passwordConfirm) {
-      if (typeof errorMessages.passwordConfirm === 'undefined') {
-        setErrorMessages((prev) => ({
-          ...prev,
-          'passwordConfirm': '비밀번호가 동일하지 않습니다.',
-        }));
-      }
-      dispatch(setRegisterInfo({
-        password: undefined,
-        passwordConfirm: undefined,
-      }));
-    } else {
-      if (typeof errorMessages.passwordConfirm === 'undefined') {
-        setErrorMessages((prev) => ({
-          ...prev,
-          'passwordConfirm': undefined,
-        }));
-      }
-      dispatch(setRegisterInfo({
-        password, passwordConfirm,
-      }));
-    }
-  }, [password, passwordConfirm]);
+  const validatePasswords = () => {
+    const passwordsMatch = password === passwordConfirm;
+    setErrorMessages((prev) => ({
+      ...prev,
+      'passwordConfirm': passwordsMatch ? '' : '비밀번호가 동일하지 않습니다.',
+    }));
+  };
 
   return (
     <>
@@ -110,6 +92,7 @@ const InformationInput = () => {
               20, '영문, 숫자, 특수문자 포함 8~20자 이내로 입력해주세요.');
           }}
           pattern={'^[A-Za-z\\d@$!%*?&]{8,20}$'}
+          onBlur={validatePasswords}
         />
         <p className='text-[18px] font-semibold mb-2 mt-[16px]'>비밀번호확인</p>
         <Input
@@ -119,9 +102,8 @@ const InformationInput = () => {
           type='password'
           onChange={(e) => {
             setPasswordConfirm(e.target.value);
-            handleInputChange(e, 'passwordConfirm',
-              20, '비밀번호가 동일하지 않습니다.');
           }}
+          onBlur={validatePasswords}
         />
         <p className='text-[18px] font-semibold mb-2 mt-[16px]'>성별</p>
         <div className='flex gap-2 w-full h-[40px]'>

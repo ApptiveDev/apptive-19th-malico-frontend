@@ -8,9 +8,9 @@ import Navbar from '@components/navbar/Navbar.tsx';
 import ScrollableContainer from '@components/container/ScrollableContainer.tsx';
 import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
 import StickyFooter from '@components/footer/StickyFooter.tsx';
-import FindIdResult from '@pages/findId/FindIdResult.tsx';
 import axiosInstance from '@utils/AxiosInstance.ts';
 import {useNavigate} from 'react-router-dom';
+
 
 enum EmailSendStatus {
   EMAIL_SENDABLE,
@@ -19,24 +19,28 @@ enum EmailSendStatus {
   EMAIL_RESENDABLE,
   EMAIL_VERIFY_SUCCEED
 }
-const FindIdPage = () => {
+
+const FindPasswordPage = () => {
   const [emailErrorMessage, setEmailErrorMessage] =
+    useState<string | undefined>(undefined);
+  const [idErrorMessage, setIdErrorMessage] =
     useState<string | undefined>(undefined);
   const [authnumErrorMessage/* setAuthnumErrorMessage*/] =
     useState<string | undefined>(undefined);
+  const [verificationCode, setVerificationCode] = useState<string>();
 
-  const [sendStatus, setSendStatus] =
-    useState<EmailSendStatus>(EmailSendStatus.EMAIL_DISABLED);
 
   const [email, setEmail] = useState<string>('');
-  const [verificationCode, setVerificationCode] = useState<string>();
   const [userId, setUserId] = useState<string>('');
 
-  const [idExists, setIdExists] = useState<boolean>(false);
+  const [passwordExists, setPasswordExists] = useState<boolean>(false);
+  const [sendStatus, setSendStatus] = useState<EmailSendStatus>(EmailSendStatus.EMAIL_DISABLED);
 
   const navigate = useNavigate();
+
   const sendVerification = (email: string) => {
     setSendStatus(EmailSendStatus.EMAIL_PROCESSING);
+
     axiosInstance.post('/auth/user/search/verification-code', {email: email}).then(() => {
       setSendStatus(EmailSendStatus.EMAIL_RESENDABLE);
     }).catch((err) => {
@@ -57,45 +61,38 @@ const FindIdPage = () => {
 
   const getResult = async () => {
     try {
-      const res = await axiosInstance.get('/auth/user/search/id?code=' + verificationCode);
-      const userid = res.data.data;
-      setUserId(userid);
-      setIdExists(true);
+      await axiosInstance.get('/auth/user/search/id?code=' + verificationCode);
+      setSendStatus(EmailSendStatus.EMAIL_VERIFY_SUCCEED);
+      setPasswordExists(true);
+
+      navigate('/reset-password', {state: {passwordExists, userId, verificationCode}});
     } catch (e) {
-      console.log(e);
-      setIdExists(false);
+      setSendStatus(EmailSendStatus.EMAIL_VERIFY_SUCCEED);
+      setPasswordExists(false);
     }
   };
 
-  const getFooterButton = () => {
-    return idExists ?
-      <div className='w-full h-full max-w-[400px] flex flex-col px-6 py-6 gap-2'>
-        <Button label={'로그인'} onClick={() => {
-          navigate('/login');
-        }}>
-        </Button>
-        <Button label={'비밀번호 찾기'} style={{
-          backgroundColor: 'white',
-          borderColor: 'black',
-          color: 'black',
-          border: '1px black solid',
-        }}></Button>
-      </div> :
-      <div className='w-full h-full max-w-[400px] flex flex-col px-6 py-6 gap-2'>
-        <Button label={'회원가입'} onClick={() => {}}>
-        </Button>
-        <Button label={'처음으로 돌아가기'} style={{
-          backgroundColor: 'white',
-          borderColor: 'black',
-          color: 'black',
-          border: '1px black solid',
-        }}></Button>
-      </div>;
-  };
-
-  const getFindIdForm = () => {
-    return (<><PageCaption lines={['아이디를 찾기 위해', '본인 인증을 진행해 주세요.']} />
+  const getFindPasswordForm = () => {
+    return (<><PageCaption lines={['비밀번호를 찾기 위해', '본인 인증을 진행해 주세요.']} />
       <div className='px-6 mt-[8px]'>
+        <p className='text-[18px] font-semibold mt-[16px] mb-2'>아이디</p>
+        <Input placeholder='아이디 입력'
+          pattern='[a-z0-9]{6,20}'
+          onChange={(e) => {
+            limitInputNumber(e, 20);
+            if (!e.target.validity.valid) {
+              setIdErrorMessage('아이디를 다시 확인해주세요.');
+              setSendStatus(EmailSendStatus.EMAIL_DISABLED);
+            } else {
+              setIdErrorMessage(undefined);
+              setSendStatus(EmailSendStatus.EMAIL_SENDABLE);
+              setUserId(e.target.value);
+            }
+          }}
+          errorMessage={idErrorMessage}
+          id='register-auth-email'
+          disabled={sendStatus === EmailSendStatus.EMAIL_PROCESSING} />
+
         <p className='text-[18px] font-semibold mt-[16px] mb-2'>이메일</p>
         <div className='flex h-[40px] gap-2'>
           <div className='flex grow h-[40px]'>
@@ -115,7 +112,7 @@ const FindIdPage = () => {
               }}
               errorMessage={emailErrorMessage}
               id='register-auth-email'
-              disabled={sendStatus === EmailSendStatus.EMAIL_VERIFY_SUCCEED}/>
+              disabled={sendStatus === EmailSendStatus.EMAIL_PROCESSING}/>
           </div>
           <Button label={sendStatus === EmailSendStatus.EMAIL_RESENDABLE ?
             '재전송' : '인증번호 전송'} style={{
@@ -164,22 +161,15 @@ const FindIdPage = () => {
   };
 
   return (<PageContainer>
-    <Navbar title={'아이디 찾기'} hasBackwardButton={true}/>
+    <Navbar title={'비밀번호 찾기'} hasBackwardButton={true}/>
     <ScrollableContainer>
       <ResponsiveContainer>
-        {sendStatus === EmailSendStatus.EMAIL_VERIFY_SUCCEED ?
-          <FindIdResult idExists={idExists} userId={userId} /> :
-          getFindIdForm()}
+        {getFindPasswordForm()}
       </ResponsiveContainer>
     </ScrollableContainer>
     <StickyFooter>
-      {sendStatus === EmailSendStatus.EMAIL_VERIFY_SUCCEED ?
-        <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
-          {getFooterButton()}
-        </div> : null
-      }
     </StickyFooter>
   </PageContainer>);
 };
 
-export default FindIdPage;
+export default FindPasswordPage;
