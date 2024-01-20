@@ -43,7 +43,7 @@ const App = () => {
       }).catch((err) => {
         // auth 실패
         dispatch(authError('로그인 실패'));
-        if (err.response && err.response.status === 404) {
+        if (err.response && (err.response.status === 404 || err.response.status === 401)) {
           // 토큰이 만료되거나 권한 거부가 아닌, 회원 탈퇴로 인해 토큰 정보를 찾을 수 없는 경우 404
           localStorage.removeItem(ACCESS_TOKEN_ITEM_KEY);
         }
