@@ -19,7 +19,7 @@ const MainPage = () => {
       case menuNums.MENU_MYPAGE:
         return <MyPage />;
       case menuNums.MENU_HOME:
-        return <div className='mt-[32px] w-full'>
+        return <div className='mt-[32px] w-full flex flex-col'>
           <RecommendationArea />
           <StylistSearchArea />
         </div>;

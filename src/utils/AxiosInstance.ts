@@ -23,7 +23,8 @@ instance.interceptors.response.use(
     if (! error.response) {
       return Promise.reject(error);
     }
-    if (!originalRequest._retry && error.response.status === 500) {
+    if (!originalRequest._retry &&
+      (error.response.status === 500 || error.response.status === 401)) {
       originalRequest._retry = true;
       try {
         const response = await axios.post(import.meta.env.VITE_BASE_SERVER_URL + '/refresh');
