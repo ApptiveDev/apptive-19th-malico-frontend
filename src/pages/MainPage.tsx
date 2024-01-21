@@ -6,6 +6,8 @@ import PageContainer from '@components/container/PageContainer.tsx';
 import ScrollableContainer from '@components/container/ScrollableContainer.tsx';
 import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
 import MyPage from '@pages/mypage/MyPage.tsx';
+import RecommendationArea from '@pages/mainpage/RecommendationArea.tsx';
+import StylistSearchArea from '@pages/mainpage/StylistSearchArea.tsx';
 
 const MainPage = () => {
   const menuNums = Constants.mainpage.menu_nums;
@@ -16,6 +18,11 @@ const MainPage = () => {
     switch (currentMenu) {
       case menuNums.MENU_MYPAGE:
         return <MyPage />;
+      case menuNums.MENU_HOME:
+        return <div className='mt-[32px] w-full'>
+          <RecommendationArea />
+          <StylistSearchArea />
+        </div>;
     }
     return null;
   };
