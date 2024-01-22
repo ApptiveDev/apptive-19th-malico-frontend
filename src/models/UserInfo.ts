@@ -1,16 +1,22 @@
 export interface UserInfo {
   nickname: string,
-  profile_image: string,
+  profileImage?: string,
   isStylist?: boolean,
 }
 
-export interface StylistInfo extends UserInfo {
-  oneLineIntroduction: string,
+export interface DetailedStylistInfo extends StylistInfo {
   stylistIntroduction: string,
   city: string,
   state: string,
   chat_link: string,
   careerDtoList: CareerDto[]
+}
+
+export interface StylistInfo extends UserInfo {
+  stylistId: number,
+  profileImage?: string,
+  onLineIntroduction?: string,
+  stageName: string,
 }
 
 interface CareerDto {

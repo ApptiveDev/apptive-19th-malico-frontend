@@ -3,7 +3,12 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {RootState} from '@/modules';
 
-import {ChangeEvent, ReactNode, useState} from 'react';
+import {
+  ChangeEvent,
+  ReactNode,
+  useEffect,
+  useState,
+} from 'react';
 import {Link} from 'react-router-dom';
 import Input from '@components/input/Input.tsx';
 import {limitInputNumber, sanitizeString} from '@/utils';
@@ -25,14 +30,10 @@ const LoginPage = (): ReactNode => {
   const authenticated = useSelector((state: RootState) =>
     state.auth.authenticated,
   );
-
-  if (authenticated) {
-    return window.location.href = '/';
-  }
   const authRequest = () => {
     const data = {userId, password: userPassword};
     AxiosInstance.post('/auth/user/login', data).then((res) => {
-      dispatch(authSuccess({nickname: '', profile_image: ''})); // 추후에 api 호출해서 정보 받아와야함
+      dispatch(authSuccess({nickname: '', profileImage: ''})); // 추후에 api 호출해서 정보 받아와야함
       const accessToken = res.data.accessToken;
       localStorage.setItem(ACCESS_TOKEN_ITEM_KEY, accessToken);
     }).catch((err) => {
@@ -41,6 +42,19 @@ const LoginPage = (): ReactNode => {
       }
     });
   };
+
+  useEffect(() => {
+    const listener = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        authRequest();
+      }
+    };
+    window.addEventListener('keydown', listener);
+  }, []);
+
+  if (authenticated) {
+    return window.location.href = '/';
+  }
 
   return (
     <PageContainer>

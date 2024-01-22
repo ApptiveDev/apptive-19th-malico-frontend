@@ -12,7 +12,7 @@ const MemberMyPage = () => {
     {imageModalOpened ? <ProfileChangeModal setClosed={() => setImageModalOpened(false)} /> : null}
     <div className='flex flex-col h-[200px] w-full items-center mt-10'>
       <img className='w-[140px] h-[140px] rounded-md cursor-pointer'
-        src={info?.profile_image ?? defaultprofile}
+        src={info?.profileImage ?? defaultprofile}
         onClick={()=>setImageModalOpened(true)}/>
       <p className='mt-[20px]'>{info?.nickname}</p>
     </div>
