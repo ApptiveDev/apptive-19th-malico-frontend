@@ -10,7 +10,6 @@ const StylistSearchArea = () => {
   const [gender, setGender] = useState<string>('모든 성별');
 
   useEffect(() => {
-
   }, [style, region, gender]);
 
   return <div className='flex flex-col w-full grow'>
@@ -29,13 +28,13 @@ const StylistSearchArea = () => {
           height: '90px',
         }} />
     </div>
-    <div className='mt-5 mb-5 grow flex flex-wrap gap-2 justify-center'>
-      <img className='w-[156px] h-[156px] rounded-md' src={exampleStylistProfile2}/>
-      <img className='w-[156px] h-[156px] rounded-md' src={exampleStylistProfile2}/>
-      <img className='w-[156px] h-[156px] rounded-md' src={exampleStylistProfile2}/>
-      <img className='w-[156px] h-[156px] rounded-md' src={exampleStylistProfile2}/>
-      <img className='w-[156px] h-[156px] rounded-md' src={exampleStylistProfile2}/>
-      <img className='w-[156px] h-[156px] rounded-md' src={exampleStylistProfile2}/>
+    <div className='mt-5 mb-5 grow flex flex-wrap gap-3 justify-center'>
+      <img className='w-[156px] h-[156px] rounded-md cursor-pointer' src={exampleStylistProfile2}/>
+      <img className='w-[156px] h-[156px] rounded-md cursor-pointer' src={exampleStylistProfile2}/>
+      <img className='w-[156px] h-[156px] rounded-md cursor-pointer' src={exampleStylistProfile2}/>
+      <img className='w-[156px] h-[156px] rounded-md cursor-pointer' src={exampleStylistProfile2}/>
+      <img className='w-[156px] h-[156px] rounded-md cursor-pointer' src={exampleStylistProfile2}/>
+      <img className='w-[156px] h-[156px] rounded-md cursor-pointer' src={exampleStylistProfile2}/>
     </div>
   </div>;
 };

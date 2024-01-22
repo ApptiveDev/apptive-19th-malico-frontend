@@ -27,7 +27,7 @@ const Dropdown = ({selected, setSelected, selectable, ...rest}: DropdownProps) =
     };
   }, [isOpened, setIsOpened]);
 
-  return <div className='flex px-3 py-1 items-center w-fit rounded-full border-2
+  return <div className='flex px-3 py-1 items-center w-fit rounded-full border
   border-black relative select-none h-[30px]'
   onClick={() => setIsOpened(!isOpened)} ref={dropdownRef}>
     <p className='mr-2 font-semibold text-[14px]'>{selected}</p>
@@ -39,7 +39,7 @@ const Dropdown = ({selected, setSelected, selectable, ...rest}: DropdownProps) =
     </svg>
     {isOpened ?
       <div className='absolute h-[200px] w-[150px] top-[30px] left-0
-      border border-dark_grey z-10 rounded-md overflow-y-auto flex flex-col' {...rest}>
+      border border-dark_grey z-10 rounded-md overflow-y-auto flex flex-col bg-white' {...rest}>
         {selectable.map((menu)=>{
           return (<div
             className='h-[28px] flex items-center px-3 py-2 cursor-pointer hover:bg-light_grey'
