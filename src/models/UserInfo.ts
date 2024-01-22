@@ -19,6 +19,11 @@ export interface StylistInfo extends UserInfo {
   stageName: string,
 }
 
+export interface StylistSearchInfo {
+  style_id: number,
+  img: string,
+}
+
 interface CareerDto {
   organizationName: string,
   content: string,

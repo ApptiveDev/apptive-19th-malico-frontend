@@ -43,7 +43,7 @@ const Dropdown = ({selected, setSelected, selectable, ...rest}: DropdownProps) =
         {selectable.map((menu)=>{
           return (<div
             className='h-[28px] flex items-center px-3 py-2 cursor-pointer hover:bg-light_grey'
-            onClick={() => setSelected(menu)}>
+            onClick={() => setSelected(menu)} key={menu}>
             {menu}
           </div>);
         })}
