@@ -26,7 +26,7 @@ const App = () => {
     if (!location.pathname.startsWith('/register')) {
       dispatch(clearRegisterInfo());
     }
-  }, [location, dispatch]);
+  }, [location]);
 
   useEffect(() => {
     // 로그인 확인 방법에는 mypage/member 또는 mypage/stylist/information에 요청을 보내는 것임.
@@ -45,7 +45,10 @@ const App = () => {
         dispatch(authError('로그인 실패'));
         if (err.response && (err.response.status === 404 || err.response.status === 401)) {
           // 토큰이 만료되거나 권한 거부가 아닌, 회원 탈퇴로 인해 토큰 정보를 찾을 수 없는 경우 404
-          localStorage.removeItem(ACCESS_TOKEN_ITEM_KEY);
+          if (localStorage.getItem(ACCESS_TOKEN_ITEM_KEY)) {
+            localStorage.removeItem(ACCESS_TOKEN_ITEM_KEY);
+            location.reload();
+          }
         }
       });
     });

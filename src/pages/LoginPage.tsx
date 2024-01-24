@@ -50,7 +50,7 @@ const LoginPage = (): ReactNode => {
       }
     };
     window.addEventListener('keydown', listener);
-  }, [authRequest]);
+  }, []);
 
   if (authenticated) {
     return window.location.href = '/';

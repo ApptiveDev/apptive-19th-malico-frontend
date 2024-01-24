@@ -84,7 +84,7 @@ const authReducer = (state = initialState, action: AuthActionType) => {
         errorMessage: null,
       };
     case AUTH_ERROR:
-      return {...state, errorMessage: action.errorMessage, isLoading: false};
+      return {...state, authenticated: false, errorMessage: action.errorMessage, isLoading: false};
     case AUTH_LOGOUT:
       return {
         ...state,

@@ -10,8 +10,8 @@ const StylistInfoBox = ({info}: StylistInfoBoxProps) => {
       src={info.profileImage ?? exampleStylistProfile} />
     <div className='w-full h-[68px] flex flex-col pt-[8px] px-[8px]'>
 
-      <p className='text-[12px] font-semibold'>나는 빡빡이다</p>
-      <p className='text-[12px] text-dark_grey'>내 눈을 바라봐 넌 행복해지고 내 ..</p>
+      <p className='text-[12px] font-semibold'>{info.stageName}</p>
+      <p className='text-[12px] text-dark_grey'>{info.onLineIntroduction}</p>
     </div>
   </div>;
 };
