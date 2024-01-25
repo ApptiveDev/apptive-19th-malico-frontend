@@ -8,20 +8,19 @@ import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
 
 const MainPage = () => {
   const menuNums = Constants.mainpage.menu_nums;
-  const menuTitles = Constants.mainpage.menu_titles;
-  const [currentMenu/* , setCurrentMenu */] =
+  const [currentMenu, setCurrentMenu] =
     useState(menuNums.MENU_HOME);
 
   return (
     <PageContainer>
-      <Navbar title={menuTitles[currentMenu]} hasNotificationButton={true}
+      <Navbar title={'MARICO'} hasNotificationButton={true}
         containsHeadline={true}/>
       <ScrollableContainer>
         <ResponsiveContainer>
           <div className='flex grow'/>
         </ResponsiveContainer>
       </ScrollableContainer>
-      <FooterBar currentMenu={currentMenu} />
+      <FooterBar currentMenu={currentMenu} setCurrentMenu={setCurrentMenu}/>
     </PageContainer>
   );
 };

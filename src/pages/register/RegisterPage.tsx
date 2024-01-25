@@ -79,25 +79,25 @@ const RegisterPage = () => {
   );
 
   if (authenticated) {
-    return <Navigate to={'/'} />;
+    return <Navigate to={'/'}/>;
   }
   return (
     <PageContainer>
 
       <Navbar title={constant.page_titles[currentProgress]}
-        hasBackwardButton={true}
-        hasProgressBar={displayProgressbar} progressNumerator={currentProgress}
-        progressDominator={constant.max_pages}>
+              hasBackwardButton={true}
+              hasProgressBar={displayProgressbar} progressNumerator={currentProgress}
+              progressDominator={constant.max_pages}>
       </Navbar>
       <ScrollableContainer>
         <ResponsiveContainer>
-          <RegisterContent currentProgress={currentProgress} />
+          <RegisterContent currentProgress={currentProgress}/>
         </ResponsiveContainer>
       </ScrollableContainer>
       <StickyFooter>
         {currentProgress < constant.page_nums.PAGE_INPUT_INFORMATION ?
           <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
-            <RegisterStepButton currentProgress={currentProgress} />
+            <RegisterStepButton currentProgress={currentProgress}/>
           </div> : <div className='w-full h-full max-w-[400px] flex flex-col px-6'>
             <Button label='확인' disabled={!canComplete} onClick={registerConfirm}/>
           </div>
