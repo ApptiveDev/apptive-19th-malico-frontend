@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {ReactNode} from 'react';
 import {Link} from 'react-router-dom';
 import PageContainer from '@components/container/PageContainer.tsx';
@@ -43,7 +43,7 @@ const NotificationPage = (): ReactNode => {
 
   // 읽지 않은 공지사항 수를 상태로 관리합니다.
   const [unreadNoticesCount, setUnreadNoticesCount] = useState(0);
-  const [unreadInquiryCount, setunreadInquiryCount] = useState(0);
+  const [unreadInquiryCount, setUnreadInquiryCount] = useState(0);
   const [unreadEtcCount] = useState(0);
 
 
@@ -51,6 +51,7 @@ const NotificationPage = (): ReactNode => {
     // 공지사항
     AxiosInstance.get<NoticesResponse>('http://43.201.242.123:8080/api/notification/notice')
       .then((response) => {
+        console.log(setUnreadInquiryCount);
         // 서버로부터 받은 데이터에서 'noticeDtoList'를 추출합니다.
         const fetchedNotices = response.data.noticeDtoList.map((notice) => {
           return {
