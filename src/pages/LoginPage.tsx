@@ -110,7 +110,8 @@ const LoginPage = (): ReactNode => {
             <Link to='/find-id'
               className='flex flex-1 justify-center'>이메일 찾기</Link>
             <p className='ml-[8px] mr-[8px]'>|</p>
-            <p className='flex flex-1 justify-center'>비밀번호 찾기</p>
+            <Link to='/find-password'
+              className='flex flex-1 justify-center'>비밀번호 찾기</Link>
           </div>
         </div>
       </ResponsiveContainer> </PageContainer>
