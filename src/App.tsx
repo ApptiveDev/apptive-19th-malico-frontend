@@ -16,6 +16,8 @@ import RegisterCompletionPage from '@pages/register/RegisterCompletionPage.tsx';
 import {clearRegisterInfo} from '@modules/registerReducer.ts';
 import FindPasswordPage from '@pages/findPassword/FindPasswordPage.tsx';
 import ResetPasswordPage from '@pages/findPassword/ResetPasswordPage.tsx';
+import NoticePage from '@pages/notification/NotificationPage.tsx';
+import NoticeDetailPage from '@pages/notification/NoticeDetailPage.tsx';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -61,6 +63,9 @@ const App = () => {
     <Route path='/find-password' element={<FindPasswordPage />}></Route>
     <Route path='/reset-password' element={<ResetPasswordPage />}></Route>
     <Route path='/register-complete' element={<RegisterCompletionPage />}></Route>
+    <Route path='/notification' element={<NoticePage />}></Route>
+    <Route path="/notice/:id" element={<NoticeDetailPage />}></Route>
+    {/* <Route path="/inquiry/:id" element={<InquiryDetailPage />}></Route> */}
   </Routes>;
 };
 
