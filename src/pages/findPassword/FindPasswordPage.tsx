@@ -33,7 +33,7 @@ const FindPasswordPage = () => {
   const [email, setEmail] = useState<string>('');
   const [userId, setUserId] = useState<string>('');
 
-  const [passwordExists, setPasswordExists] = useState<boolean>(false);
+  const [, setPasswordExists] = useState<boolean>(false);
   const [sendStatus, setSendStatus] = useState<EmailSendStatus>(EmailSendStatus.EMAIL_DISABLED);
 
   const navigate = useNavigate();
@@ -65,7 +65,7 @@ const FindPasswordPage = () => {
       setSendStatus(EmailSendStatus.EMAIL_VERIFY_SUCCEED);
       setPasswordExists(true);
 
-      navigate('/reset-password', {state: {passwordExists, userId, verificationCode}});
+      navigate('/reset-password', {state: {passwordExists: true, userId, verificationCode}});
     } catch (e) {
       setSendStatus(EmailSendStatus.EMAIL_VERIFY_SUCCEED);
       setPasswordExists(false);

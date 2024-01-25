@@ -61,6 +61,7 @@ const FindIdPage = () => {
       const userid = res.data.data;
       setUserId(userid);
       setIdExists(true);
+      setSendStatus(EmailSendStatus.EMAIL_VERIFY_SUCCEED);
     } catch (e) {
       console.log(e);
       setIdExists(false);
