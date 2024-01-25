@@ -18,6 +18,8 @@ import FindPasswordPage from '@pages/findPassword/FindPasswordPage.tsx';
 import ResetPasswordPage from '@pages/findPassword/ResetPasswordPage.tsx';
 import NoticePage from '@pages/notification/NotificationPage.tsx';
 import NoticeDetailPage from '@pages/notification/NoticeDetailPage.tsx';
+import StylistInfoPage from '@pages/mainpage/StylistInfoPage.tsx';
+import ServiceRequestPage from '@pages/mainpage/ServiceRequestPage.tsx';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,7 +30,7 @@ const App = () => {
     if (!location.pathname.startsWith('/register')) {
       dispatch(clearRegisterInfo());
     }
-  }, [location, dispatch]);
+  }, [location]);
 
   useEffect(() => {
     // 로그인 확인 방법에는 mypage/member 또는 mypage/stylist/information에 요청을 보내는 것임.
@@ -45,9 +47,12 @@ const App = () => {
       }).catch((err) => {
         // auth 실패
         dispatch(authError('로그인 실패'));
-        if (err.response && err.response.status === 404) {
+        if (err.response && (err.response.status === 404 || err.response.status === 401)) {
           // 토큰이 만료되거나 권한 거부가 아닌, 회원 탈퇴로 인해 토큰 정보를 찾을 수 없는 경우 404
-          localStorage.removeItem(ACCESS_TOKEN_ITEM_KEY);
+          if (localStorage.getItem(ACCESS_TOKEN_ITEM_KEY)) {
+            localStorage.removeItem(ACCESS_TOKEN_ITEM_KEY);
+            location.reload();
+          }
         }
       });
     });
@@ -63,6 +68,8 @@ const App = () => {
     <Route path='/notification' element={<NoticePage />}></Route>
     <Route path="/notice/:id" element={<NoticeDetailPage />}></Route>
     {/* <Route path="/inquiry/:id" element={<InquiryDetailPage />}></Route> */}
+    <Route path='/stylist-info/:id' element={<StylistInfoPage />}></Route>
+    <Route path='/service-request/:id' element={<ServiceRequestPage />}></Route>
   </Routes>;
 };
 

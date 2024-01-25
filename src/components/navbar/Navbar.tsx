@@ -37,7 +37,7 @@ const Navbar = (props: NavbarProps) => {
         <div className='w-[48px] h-[46px] flex justify-center items-center'>
           {props.hasNotificationButton ?
             <IconButton icon={notification} onClick={() => {
-              navigate(-1);
+              navigate('/notification');
             }}> </IconButton> : null}
         </div>
       </div>

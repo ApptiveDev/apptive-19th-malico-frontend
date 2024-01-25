@@ -3,10 +3,15 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {RootState} from '@/modules';
 
-import {ChangeEvent, ReactNode, useState} from 'react';
-import {Link, Navigate} from 'react-router-dom';
+import {
+  ChangeEvent,
+  ReactNode,
+  useEffect,
+  useState,
+} from 'react';
+import {Link} from 'react-router-dom';
 import Input from '@components/input/Input.tsx';
-import {limitInputNumber} from '@/utils';
+import {limitInputNumber, sanitizeString} from '@/utils';
 import Button from '@components/button/Button.tsx';
 import LoginCheckbox from '@components/input/LoginCheckbox.tsx';
 import ResponsiveContainer from '@components/container/ResponsiveContainer.tsx';
@@ -17,7 +22,7 @@ import Navbar from '@components/navbar/Navbar.tsx';
 const LoginPage = (): ReactNode => {
   const [userId, setUserId] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const [errorMessage/* setErrorMessage */] = useState();
+  const [errorMessage, setErrorMessage] = useState<string>();
   const [autologinChecked, setAutoLoginChecked] = useState(true);
 
   const dispatch = useDispatch();
@@ -25,18 +30,31 @@ const LoginPage = (): ReactNode => {
   const authenticated = useSelector((state: RootState) =>
     state.auth.authenticated,
   );
-
-  if (authenticated) {
-    return <Navigate to={'/'} />;
-  }
   const authRequest = () => {
     const data = {userId, password: userPassword};
     AxiosInstance.post('/auth/user/login', data).then((res) => {
-      dispatch(authSuccess({nickname: '', profile_image: ''})); // 추후에 api 호출해서 정보 받아와야함
+      dispatch(authSuccess({nickname: '', profileImage: ''})); // 추후에 api 호출해서 정보 받아와야함
       const accessToken = res.data.accessToken;
       localStorage.setItem(ACCESS_TOKEN_ITEM_KEY, accessToken);
+    }).catch((err) => {
+      if (err.response) {
+        setErrorMessage(sanitizeString(err.response.data.message));
+      }
     });
   };
+
+  useEffect(() => {
+    const listener = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        authRequest();
+      }
+    };
+    window.addEventListener('keydown', listener);
+  }, []);
+
+  if (authenticated) {
+    return window.location.href = '/';
+  }
 
   return (
     <PageContainer>
@@ -52,8 +70,11 @@ const LoginPage = (): ReactNode => {
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 const inputId = e.target.value;
                 setUserId(inputId);
-                limitInputNumber(e, 30); // ID의 최대 글자수 제한: 10글자.
-              // 사용자 정보 db 스키마가 정의되면 상수로서 정의하는 것이 좋을 것 같음
+                limitInputNumber(e, 30);
+                // 사용자 정보 db 스키마가 정의되면 상수로서 정의하는 것이 좋을 것 같음
+                if (typeof errorMessage !== 'undefined') {
+                  setErrorMessage(undefined);
+                }
               }}
               style={{
                 marginBottom: '8px',
@@ -65,6 +86,9 @@ const LoginPage = (): ReactNode => {
                 const inputPassword = e.target.value;
                 setUserPassword(inputPassword);
                 limitInputNumber(e, 20); // 비밀번호의 최대 글자수 제한: 20글자.
+                if (typeof errorMessage !== 'undefined') {
+                  setErrorMessage(undefined);
+                }
               }}
               errorMessage={errorMessage}
             ></Input>
@@ -86,7 +110,8 @@ const LoginPage = (): ReactNode => {
             <Link to='/find-id'
               className='flex flex-1 justify-center'>이메일 찾기</Link>
             <p className='ml-[8px] mr-[8px]'>|</p>
-            <p className='flex flex-1 justify-center'>비밀번호 찾기</p>
+            <Link to='/find-password'
+              className='flex flex-1 justify-center'>비밀번호 찾기</Link>
           </div>
         </div>
       </ResponsiveContainer> </PageContainer>
