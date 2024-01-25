@@ -28,13 +28,14 @@ const StylistSearchArea = () => {
     if (style !== STYLE_ALL) {
       data.style = style;
     }
-    if (style !== REGION_ALL) {
+    if (region !== REGION_ALL) {
       data.region = region;
     }
-    if (style !== GENDER_ALL) {
+    if (gender !== GENDER_ALL) {
       data.gender = gender;
     }
-    axiosInstance.get('/api/home/filter', data as object).then((res) => {
+    axiosInstance.post('/api/home/filter', data).then((res) => {
+      console.log(data);
       const result: StylistSearchInfo[] = [];
       res.data.map((stylist: StylistSearchInfo) => {
         result.push(stylist);
@@ -48,9 +49,10 @@ const StylistSearchArea = () => {
   const getFoundStylist = () => {
     const ret = [];
     for (const stylist of searchResult) {
+      const key = 'stylistsearch-' + stylist.style_id;
       ret.push(
         <img className='w-[156px] h-[156px] rounded-md cursor-pointer'
-          src={stylist.img ?? exampleStylistProfile2} />);
+          src={stylist.img ?? exampleStylistProfile2} key={key} />);
     }
     return ret;
   };
@@ -73,7 +75,7 @@ const StylistSearchArea = () => {
           height: '90px',
         }} />
     </div>
-    <div className='mt-5 mb-5 grow flex flex-wrap gap-3 justify-center'>
+    <div className='mt-5 mb-5 grow flex flex-wrap gap-3 justify-start'>
       {getFoundStylist()}
     </div>
   </div>;
