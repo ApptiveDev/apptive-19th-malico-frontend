@@ -29,7 +29,8 @@
       "@constants/*": ["src/constants/*"],
       "@utils/*": ["src/utils/*"],
       "@/*": ["src/*"]
-    }
+    },
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
