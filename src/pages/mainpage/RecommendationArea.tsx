@@ -10,13 +10,24 @@ import {StylistInfo} from '@/models/UserInfo.ts';
 const RecommendationArea = () => {
   const authState = useSelector((state: RootState) => state.auth);
   const [stylistInfos, setStylistInfos] = useState<StylistInfo[]>([]);
+  const fakeStylistInfo: StylistInfo = {
+    nickname: '',
+    stylistId: 0,
+    // eslint-disable-next-line max-len
+    profileImage: 'https://maricobucket.s3.ap-northeast-2.amazonaws.com/63eaad5c-b2c3-416b-b668-6bd6aad11b3a.jpg',
+    oneLineIntroduction: '스타일리스트 추천 예시입니다.',
+    stageName: '스타일리스트',
+  };
   useEffect(() => {
     if (authState.authenticated) {
       axiosInstance.get('/api/home/member/recommend').then((res) => {
         setStylistInfos(res.data);
-      }).catch((error) => {
-        alert('페이지의 내용을 불러올 수 없습니다. 잠시 후 다시 시도해주세요.');
-        console.log(error);
+      }).catch(() => {
+        const res = [];
+        for (let i=0; i<3; i++) {
+          res.push(fakeStylistInfo);
+        }
+        setStylistInfos([fakeStylistInfo, fakeStylistInfo]);
       });
     }
   }, [authState.authenticated]);
@@ -25,18 +36,11 @@ const RecommendationArea = () => {
     const ret = [];
     let i = 0;
     for (const stylist of stylistInfos) {
-      const key = stylist.stageName ?? 'stylist-name' + i;
+      const key = 'stylist-name' + i;
       ret.push(<StylistInfoBox info={stylist} key={key}/>);
       i+=1;
     }
     return ret;
-  };
-  const fakeStylistInfo: StylistInfo = {
-    nickname: '',
-    stylistId: 0,
-    profileImage: undefined,
-    onLineIntroduction: '설명1234설명',
-    stageName: 'exampleStylist',
   };
   const navigate = useNavigate();
   return <div className='h-[330px] flex flex-col'>

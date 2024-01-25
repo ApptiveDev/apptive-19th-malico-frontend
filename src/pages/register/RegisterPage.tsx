@@ -85,9 +85,9 @@ const RegisterPage = () => {
     <PageContainer>
 
       <Navbar title={constant.page_titles[currentProgress]}
-              hasBackwardButton={true}
-              hasProgressBar={displayProgressbar} progressNumerator={currentProgress}
-              progressDominator={constant.max_pages}>
+        hasBackwardButton={true}
+        hasProgressBar={displayProgressbar} progressNumerator={currentProgress}
+        progressDominator={constant.max_pages}>
       </Navbar>
       <ScrollableContainer>
         <ResponsiveContainer>

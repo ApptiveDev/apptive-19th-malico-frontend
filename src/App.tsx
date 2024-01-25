@@ -18,6 +18,8 @@ import FindPasswordPage from '@pages/findPassword/FindPasswordPage.tsx';
 import ResetPasswordPage from '@pages/findPassword/ResetPasswordPage.tsx';
 import NoticePage from '@pages/notification/NotificationPage.tsx';
 import NoticeDetailPage from '@pages/notification/NoticeDetailPage.tsx';
+import StylistInfoPage from '@pages/mainpage/StylistInfoPage.tsx';
+import ServiceRequestPage from '@pages/mainpage/ServiceRequestPage.tsx';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -66,6 +68,8 @@ const App = () => {
     <Route path='/notification' element={<NoticePage />}></Route>
     <Route path="/notice/:id" element={<NoticeDetailPage />}></Route>
     {/* <Route path="/inquiry/:id" element={<InquiryDetailPage />}></Route> */}
+    <Route path='/stylist-info/:id' element={<StylistInfoPage />}></Route>
+    <Route path='/service-request/:id' element={<ServiceRequestPage />}></Route>
   </Routes>;
 };
 

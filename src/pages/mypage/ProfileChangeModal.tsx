@@ -6,11 +6,13 @@ interface ProfileChangeModalProps {
 const ProfileChangeModal = ({setClosed}: ProfileChangeModalProps) => {
   return (<Modal title={'프로필 사진'}
     style={{
-      height: '138px',
+      height: '100px',
     }}
     setClosed={setClosed}
   >
-
+    <div className='flex flex-col w-full grow items-center justify-center cursor-pointer'>
+      프로필 사진 업로드하기
+    </div>
   </Modal>);
 };
 

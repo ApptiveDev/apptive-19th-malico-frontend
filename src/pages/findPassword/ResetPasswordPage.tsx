@@ -58,6 +58,7 @@ const ResetPasswordPage = () => {
       userId,
       password: password,
     };
+    console.log(data);
     axiosInstance.patch('/auth/user/search/password', data).then(() => {
       alert('비밀번호 변경이 완료되었습니다.');
       navigate('/login');
